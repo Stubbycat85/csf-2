@@ -1,0 +1,204 @@
+\documentclass{article}
+
+\usepackage[osf]{mathpazo} % Use Palatino / Euler fonts
+\usepackage{epsfig}
+\usepackage{graphicx}% Include figure files
+
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=Java,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true
+  tabsize=3
+}
+
+\title{Computer Science Foundations\\ Puzzle-Solving Workshop and Seminar\\
+Fall 2013}
+
+\author{Paul Pham}
+
+\begin{document}
+
+\maketitle
+
+Welcome to the Puzzle-Solving Workshop and Seminar for
+Computer Science Foundations. The purpose of this workshop
+is to help strengthen your mental muscles. You may feel weak at
+first, but don't worry. We'll start gently and gradually increase
+the weight of the problem, and you'll have super intellectual
+strength in no time.
+
+What you use your newfound strength for is up to you, but we
+\emph{can} tell you that it will make you a better programmer. Even if
+all you want to do is write video games or make a website to track
+baby polar bears, you'll have to solve mathematical problems
+like whether those asteroids are in range of your lasers or the
+distance between two GPS coordinates (latitute and longitude).
+This workshop will definitely help you in the Discrete Math thread.
+
+Conversely,
+programming will make you better at math! (It's like a virtuous
+cycle). After all,
+one of the things computers do best is crunch numbers, and with
+a program, you can calculate mathematical results faster than
+working them out by hand.
+
+So let's get started.
+
+%\section{Learning Styles}
+
+%People learn in many different ways, which is a good thing,
+%since there are many different ways to solve the same problem.
+%The more people who can work on a problem, the more likely that as
+%a group, they can find a solution.
+
+%Today, we'll only discuss two ways of solving a particular math
+%problem: a way using symbols and a way using pictures.
+
+%\section{General versus Specific Problems}
+
+%A specific problem uses actual numbers. For example, if you wanted to
+%make 3 catfish tacos for you and your friends, you would take all the
+%ingredients for one taco (a corn taco shell, some shredded catfish,
+%refried beans, salsa, etc.) and multiply them by 3.
+
+%A general problem uses symbols, so that you can plug in \emph{any}
+%number of catfish tacos, or whatever, and still solve your problem.
+%Problems have an input, like the number $3$ in the specific
+%case above, and we can replace it with the variable $n$.
+
+%\section{Problem-Solving Strategies}
+
+%One of the most basic, and my personal favorite, way of solving
+%problems is to start with the absolute simplest case. Usually
+%$n=2$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Problem 1}
+
+One day young Carl Friedrich Gauss was bored in school.
+His teacher, wanting to keep his students busy doing a repetitive
+task, asked everyone to add up all the natural numbers from 1 to 100.
+Although they complained, all the students dutifully set about
+adding 1 to 2 to get 3, 3 plus 3 equals 6, 6 plus 4 equals 10, well,
+you get the idea. (This was before they had computers).
+
+Everyone did this except Carl Friedrich. At first, he stared
+at the problem in confusion, like anyone else.
+This is the first step to solving any problem, and it is
+important not to skip it. The second step is to use a fancy
+symbol (he chooses the Greek letter $\xi$) to represent the
+answer that you want.
+
+\begin{equation}
+\xi = 1 + 2 + 3 + \ldots + 100
+\end{equation}
+
+The $\ldots$ in the equation above represents where you would fall
+asleep if you actually tried to list the numbers from 1 to 100.
+
+Can you help Carl Friedrich solve his problem without adding
+one hundred numbers together, thereby teaching his teacher a lesson?
+
+Trying using the strategy of enumerating simple examples above,
+or try drawing a picture of $\xi$ number of blocks in a suggestive
+way.\footnote{Not \emph{that} kind of suggestive. In a way that
+\emph{suggests} the right answer, silly.}
+
+If you can solve this problem, you've solved the specific case
+of Gauss's problem for $n = 100$. What is the solution for
+general $n$?
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Optional Sidequest}
+
+If that problem above was too easy for you, Gauss's grouchy
+schoolmaster has another one that might cause you to sweat a little more.
+(Teachers have a great way of making up new problems on the spot).
+But don't worry, this is optional, you don't have to do this to get
+credit for the workshop.
+
+What is the sum of the first $n$ squares? A square isn't just someone
+who isn't cool, a square is also an integer multiplied by itself.
+Let's use a different Greek symbol now, like $\zeta$:
+
+\begin{equation}
+\zeta = 1^2 + 2^2 + 3^2 + \ldots + n^2
+\end{equation}
+
+You will need your powers of suggestive picture drawing, and the
+original solution to Gauss's problem above.
+
+%And if that weren't enough, the teacher gives Gauss a final problem that even
+%the teacher doesn't know the answer to.
+
+%What is the sum of the first $n$ $k$th powers? That is, a $k$th power
+%is an integer multipled by itself $k$ times. Let's use the symbol
+%$\omega$
+
+%\begin{equation}
+%\omega = 1^k + 2^k + 3^k + \ldots + n^k
+%\end{equation}
+
+\pagebreak
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Problem 2}
+
+Every morning, Ada must decide whether to bike to school or not
+(and take the bus instead).
+Because she is a very logical woman,
+she uses the following rules to help her decide.
+
+\begin{enumerate}
+\item
+By default, she wants to bike to get exercise and slow global warming.
+\item
+If there is thunder and lightning, she will not bike.
+\item
+Unless she has a class at 10:00am, then she will still bike through
+lightning and thunder.
+\end{enumerate}
+
+Because she has heard that programming can make her life easier,
+she writes the following Python program to help her decide. All
+the variables in this program are \emph{Boolean}, meaning they can
+only take on the values \texttt{True} and \texttt{False}.
+
+\begin{lstlisting}
+bikeToSchool = True
+
+if (thunderAndLightning and not classAt10OClock):
+	bikeToSchool = False
+	
+print str(bikeToSchool)
+\end{lstlisting}
+
+What is the value of \texttt{bikeToSchool} at the end of the
+program for all
+possible combinations of values \texttt{thunderAndLightning} and
+\texttt{classAt10OClock}? Draw a truth table.
+
+Let's add another rule: if Ada is tired, she will not bike no
+matter what. We'll represent this with another Boolean variable,
+\texttt{isTired}. How would you modify the program above to
+make a decision for Ada's three rules? How many different combinations
+of values are there for all three Boolean variables?
+
+\end{document}
