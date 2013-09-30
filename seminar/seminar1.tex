@@ -7,6 +7,8 @@
 \usepackage{listings}
 \usepackage{color}
 
+\usepackage{enumerate}
+
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \definecolor{gray}{rgb}{0.5,0.5,0.5}
 \definecolor{mauve}{rgb}{0.58,0,0.82}
@@ -29,9 +31,10 @@
 }
 
 \title{Computer Science Foundations\\ Puzzle-Solving Workshop and Seminar\\
+\large{Episode 1---September 30}\\
 Fall 2013}
 
-\author{Paul Pham}
+\author{Paul Pham and Neal Nelson}
 
 \begin{document}
 
@@ -60,6 +63,24 @@ a program, you can calculate mathematical results faster than
 working them out by hand.
 
 So let's get started.
+
+\subsection{Instructions}
+
+\begin{enumerate}
+\item Write your name and Evergreen login at the top.
+\item Read the problem. If you already know how to solve it, or you
+can figure it out right away
+\begin{enumerate}
+\item write the answer quickly
+\item turn it in to the instructors
+\item get the optional bonus problems and follow those instructions.
+\end{enumerate}
+\item If you have never seen the problem before or don't know how to do it,
+find a partner in the same boat, and work together.
+\item Answer all the problems to the best of your ability.
+If you get stuck, raise your hand and someone will come tutor you.
+\item Turn in your problems to the instructors before you leave.
+\end{enumerate}
 
 %\section{Learning Styles}
 
@@ -116,6 +137,11 @@ asleep if you actually tried to list the numbers from 1 to 100.
 Can you help Carl Friedrich solve his problem without adding
 one hundred numbers together, thereby teaching his teacher a lesson?
 
+\begin{enumerate}[(a)]
+\item
+What is the sum of the natural numbers from 1 to 100?
+\end{enumerate}
+
 Trying using the strategy of enumerating simple examples above,
 or try drawing a picture of $\xi$ number of blocks in a suggestive
 way.\footnote{Not \emph{that} kind of suggestive. In a way that
@@ -125,38 +151,11 @@ If you can solve this problem, you've solved the specific case
 of Gauss's problem for $n = 100$. What is the solution for
 general $n$?
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Optional Sidequest}
-
-If that problem above was too easy for you, Gauss's grouchy
-schoolmaster has another one that might cause you to sweat a little more.
-(Teachers have a great way of making up new problems on the spot).
-But don't worry, this is optional, you don't have to do this to get
-credit for the workshop.
-
-What is the sum of the first $n$ squares? A square isn't just someone
-who isn't cool, a square is also an integer multiplied by itself.
-Let's use a different Greek symbol now, like $\zeta$:
-
-\begin{equation}
-\zeta = 1^2 + 2^2 + 3^2 + \ldots + n^2
-\end{equation}
-
-You will need your powers of suggestive picture drawing, and the
-original solution to Gauss's problem above.
-
-%And if that weren't enough, the teacher gives Gauss a final problem that even
-%the teacher doesn't know the answer to.
-
-%What is the sum of the first $n$ $k$th powers? That is, a $k$th power
-%is an integer multipled by itself $k$ times. Let's use the symbol
-%$\omega$
-
-%\begin{equation}
-%\omega = 1^k + 2^k + 3^k + \ldots + n^k
-%\end{equation}
-
-\pagebreak
+\begin{enumerate}[(a)]
+\setcounter{enumi}{1}
+\item
+What is the sum of the natural numbers from 1 to n, as an expression in $n$?
+\end{enumerate}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Problem 2}
@@ -190,15 +189,38 @@ if (thunderAndLightning and not classAt10OClock):
 print str(bikeToSchool)
 \end{lstlisting}
 
+\begin{enumerate}[(a)]
+\item
+What is the value printed out by this program when the
+input values are \texttt{thunderAndLightning = False}
+and \texttt{classAt10OClock = True}?
+\item
 What is the value of \texttt{bikeToSchool} at the end of the
 program for all
 possible combinations of values \texttt{thunderAndLightning} and
 \texttt{classAt10OClock}? Draw a truth table.
+\item
+Write an equivalent program by changing the first three lines.
+This time, start with the default condition (first line)
+\texttt{bikeToSchool = False}.
+\end{enumerate}
 
 Let's add another rule: if Ada is tired, she will not bike no
 matter what. We'll represent this with another Boolean variable,
-\texttt{isTired}. How would you modify the program above to
-make a decision for Ada's three rules? How many different combinations
+\texttt{isTired}.
+
+\begin{enumerate}[(a)]
+\setcounter{enumi}{3}
+\item
+How would you modify the program above to
+make a decision for Ada's three rules?
+\item
+How many different combinations
 of values are there for all three Boolean variables?
+\item
+Let's \emph{generalize} the problem.
+How many different combinations of truth values are
+there for $n$ Boolean input variables?
+\end{enumerate}
 
 \end{document}
