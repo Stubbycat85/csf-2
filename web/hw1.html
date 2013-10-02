@@ -1,0 +1,176 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- saved from url=(0074)http://courses.cs.washington.edu/courses/cse140/13wi/homework/hw1/hw1.html -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Homework 1: Welcome to Python</title>
+  
+<style>[touch-action="none"]{ -ms-touch-action: none; touch-action: none; }[touch-action="pan-x"]{ -ms-touch-action: pan-x; touch-action: pan-x; }[touch-action="pan-y"]{ -ms-touch-action: pan-y; touch-action: pan-y; }[touch-action="scroll"],[touch-action="pan-x pan-y"],[touch-action="pan-y pan-x"]{ -ms-touch-action: pan-x pan-y; touch-action: pan-x pan-y; }</style></head>
+<body>
+<h1>Homework 1: Welcome to Python</h1>
+
+<p>
+<b>Due: Thursday, 10/3, 11:59pm</b>
+via GitHub. Come to lab on Thursday to learn how to submit your assignments
+using GitHub.
+</p>
+
+<p>
+This assignment will familiarize you with the Python programming language.
+Python is an easy-to-use but powerful programming language that is
+particularly well-suited to quickly creating small programs.
+</p>
+
+<p>
+Python, and this class, can be done either using a command-line shell
+and a text editor, or using graphical environments. Instructions for
+both will be provided below. Although the command-line interface is
+harder to learn, it will give experts greater power, flexibility, and
+speed in performing programming tasks in the future.
+</p>
+
+<h1 id="part-i">Part I:  Get started with Python</h1>
+
+<p>
+If you need to install Python on your own machine or figure out how to use it on campus,
+see <a href="python.html">Using and Installing Python</a>.
+</p>
+
+<p>
+Read (and follow along with!)
+<a href="https://hkn.eecs.berkeley.edu/~dyoo/python/idle_intro/">a short tutorial for IDLE</a>.
+</p>
+
+<!-- <p>
+Optionally, follow the first parts of
+<a href="http://cscircles.cemc.uwaterloo.ca/">a Python tutorial</a>.
+</p>
+-->
+
+<!-- I'm not thrilled with this other tutorial: http://www.learnpython.org/ -->
+
+<!--
+Don't advertise this Python tutorial, which is for Python 3:
+http://centurion2.com/Python/PythonIntro.html
+(Ignore the "Installation" parts, which do not use the
+Enthought Python Distribution.)
+-->
+
+<p>
+There is nothing to turn in for Part I of the assignment.
+</p>
+
+
+
+<h1 id="part-ii">Part II:  Programming exercises</h1>
+
+<p>
+Download the files <a href="hw1.py"><tt>hw1.py</tt></a>
+and <a href="hw1-test.py"><tt>hw1-test.py</tt></a>.
+</p>
+
+<p>
+For problems in this homework, you will edit your local copy of the
+<tt>hw1.py</tt> file.
+You may do your work by editing and running <tt>hw1.py</tt> (we recommend
+this approach), or by typing code at the Python interpreter (or in an
+IDLE window) and copying it into
+the appropriate part of <tt>hw1.py</tt> when you are satisfied with it.
+When you have completed this homework, running the <tt>hw1.py</tt> file
+should compute and print the answers to all the problems.
+</p>
+
+<p>
+Don't forget to include documentation (source code comments, on a line
+starting with <tt>#</tt>) as appropriate in file <tt>hw1.py</tt>.
+</p>
+
+
+<h2>Problem 1: Roots</h2>
+
+<!--
+<p>
+Compute the larger root of the quadratic equation
+13 x<sup>2</sup>+78x-5083.
+</p>
+-->
+
+<p>
+Compute and print both roots of the quadratic equation
+x<sup>2</sup>-5.86 x+ 8.5408.
+</p>
+
+<p>
+Hint: recall that the roots of a quadratic equation ax<sup>2</sup>+bx+c are x=
+</p>
+<table style="font-family:verdana;">
+  <tbody><tr>
+    <td>−b ± 
+    √<span style="text-decoration:overline"> 
+    b<span style="font-size: 10px;vertical-align:+25%;">2</span> − 
+    4ac&nbsp;</span></td>
+  </tr>
+  <tr>
+    <td style="text-align:center;">
+    <span style="text-decoration:overline;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+    2a &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>
+    </td>
+  </tr>
+</tbody></table>
+
+<p>
+Hint: use the
+<a href="http://docs.python.org/library/math.html#math.sqrt"><tt>math.sqrt</tt></a>
+function to compute the square root.  (If you are using the Python
+interpreter, you need to first do <tt>import math</tt>.  This already
+appears in the <tt>hw1.py</tt> file that you will be editing, so everything
+is already set up for you if you are working within that file.)
+Also, use the built-in <code>str</code> function to convert numbers to strings
+for printing.
+</p>
+
+<h2>Problem 2: Importing</h2>
+
+<p>
+Write code that imports a module called <code>hw1-test</code> and
+prints out variables within that scope named
+<code>a</code>,
+<code>b</code>,
+<code>c</code>,
+<code>d</code>,
+<code>e</code>,
+and <code>f</code>, as strings, one per line.
+</p>
+
+<p>
+
+<a href="http://docs.python.org/library/math.html#math.sqrt"><tt>math.sqrt</tt></a>
+</p>
+
+<h2>Problem 3: Evaluating Boolean Expressions</h2>
+
+<p>
+Write a program that prints out the following boolean
+expression (as a string) using the variables above from <code>hw1-test</code>.
+</p>
+
+<blockquote><code>
+((a and b) or (not c) and not (d or e or f))
+</code></blockquote>
+
+<h2>Submitting your homework</h2>
+
+<p>
+If you already know how to use github, add it to a repository
+called <code>csf</code> shared with the instructor (username
+<code>ppham</code>, as we all did in Lecture 1), commit it,
+and push it.
+</p>
+
+<p>
+If you don't know how to use github, don't worry!
+We'll do it in lab on Thursday.
+</p>
+<!--  LocalWords:  hw1 py 78x 4ac 2a CollectIt Dropbox ILDE 78x 4ac 2a
+ -->
+<!--  LocalWords:  numlines
+ -->
+</body></html>

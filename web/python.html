@@ -1,0 +1,214 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- saved from url=(0077)http://courses.cs.washington.edu/courses/cse140/13wi/computing-resources.html -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Computing resources</title>
+  
+<style>[touch-action="none"]{ -ms-touch-action: none; touch-action: none; }[touch-action="pan-x"]{ -ms-touch-action: pan-x; touch-action: pan-x; }[touch-action="pan-y"]{ -ms-touch-action: pan-y; touch-action: pan-y; }[touch-action="scroll"],[touch-action="pan-x pan-y"],[touch-action="pan-y pan-x"]{ -ms-touch-action: pan-x pan-y; touch-action: pan-x pan-y; }</style></head>
+<body>
+<h1>Installing and Using Python at Evergreen</h1>
+
+<!-- end toc -->
+
+<p>
+You can install Python on your own machine (laptop or desktop computer) if you prefer to work at home.
+Or you can use Python on college computers provided in the ACC (Academic Computing Center).
+</p>
+
+<p>
+There are also two ways of using Python: using a graphical integrated development
+environment which is more friendly to beginners, and a command-line way which is
+more powerful for experienced users.
+</p>
+
+<p>
+We will discuss all of these options below.
+</p>
+
+<h2 id="Installing_Python">Installing Python</h2>
+
+<p>
+Python is free and open-source, and is easy to install on Windows, Mac, and
+Linux platforms.  We will use a free distribution of Python that is graciously
+provided by Enthought Scientific Computing Solutions, called
+<a href="https://www.enthought.com/downloads/">Canopy Express, which you can download here.</a>
+If your operating system doesn't show up automatically, click on the links
+at the bottom of the screen.
+</p>
+
+<img src="https://www.evernote.com/shard/s73/sh/787060e5-8097-4c7b-950d-76dc140e4901/71b04e5014b2babf7741f233624a3a95/res/dedc2227-cc95-4ddd-946d-08657f5b1ed1/skitch.png?resizeSmall&width=832" />
+
+<p>
+If you have problems, please e-mail the instructor.
+Canopy Express is currently not available on ACC machines, although we are working to change that.
+</p>
+
+<p>The Canopy Express installer will ask you if you wish to use its
+version of Python on the command-line, and say something about
+adding directories to your path. Unless you already have some other
+Python distribution installed and you truly love it and have tons of
+custom packages for it, etc., it is probably safe to say "Yes" and
+let Canopy do its thing.
+</p>
+
+<h2 id="Graphical">Using Python from IDLE</h2>
+
+<p>
+For beginning users, it is easier to use a graphical
+environment than the command-line. A graphical
+environment that lets you edit, run, navigate, and debug Python files
+is called an integrated development environment (IDE) because it
+integrates all the different parts of programming into one
+piece of software.
+</p>
+
+<p>
+A popular IDE available for Windows, Mac,
+and Linux machines is called IDLE.
+IDLE is installed as part of the Enthought Canopy Express
+distribution installed (see above) or the standard
+Python distribution (from http://python.org).
+You can access this on all Mac machines in the ACC.
+</p>
+
+<p>
+Here is a tutorial on using IDLE for beginners from
+UC Berkeley:
+<a href="https://hkn.eecs.berkeley.edu/~dyoo/python/idle_intro/">
+One Day of IDLE Toying</a>.
+</p>
+
+<h2 id="IDLE">Using Python Graphically</h2>
+
+<p>
+If you are using Windows, you may prefer to use the IDLE, which
+comes with the standard Python distribution that you can download from http://python.org.
+IDLE is more than just an editor; it is a simple but powerful IDE, or
+"integrated development environment", which lets you edit, run, navigate,
+and debug Python code.
+</p>
+
+
+
+
+<h2 id="Command_Shell">Using Python from the Command Line and Text Editor</h2>
+
+<p>
+Using Python from the command-line lets expert users accomplish
+a wider variety of programming tasks, and lets them do it more efficiently,
+then using a graphical interface. However, it is optional and not
+necessary for this class.
+</p>
+
+<p>
+Python is installed by default on the command-line in both Mac OS X and Linux,
+including Mac and Linux machines in the ACC. If you prefer to run your
+Python programs from the command-line in these operating systems, no
+installation is necessary. Instead, simply type <code>python</code>
+at your command prompt to get similar output to the excerpt below:
+</p>
+
+<blockquote><code>
+$ python
+Python 2.7.2 (default, Oct 11 2012, 20:14:37) 
+[GCC 4.2.1 Compatible Apple Clang 4.0 (tags/Apple/clang-418.0.60)] on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+>>> 
+</code></blockquote>
+
+<p>
+This runs Python in interactive mode. If you wish to run a script/program,
+for example called <code>myprogram.py</code>,
+enter <code>python myprogram.py</code> at the prompt instead.
+For more information about invoking the Python interpreter from the
+command-line, see this page in the official Python tutorial:
+<a href="http://docs.python.org/2/tutorial/interpreter.html">
+Using the Python Interpreter</a>.
+</p>
+
+<p>
+For more about UNIX commands, the UNIX shell, and working with files and directories,
+see the document <a href="http://courses.cs.washington.edu/courses/cse140/13wi/shell-usage.html">How do I use the command-line
+    shell?</a>.
+</p>
+
+<p>
+You can also get a command-line interface on Windows by using
+<a href="http://cygwin.com/">Cygwin</a>, which is really useful for emulating
+all kinds of UNIX-style development on a Windows machine.
+</p>
+
+<p>
+Finally, you can get a command-line interface anywhere by
+logging into the server <code>ada.evergreen.edu</code>
+using a Secure Shell (ssh) and using the Linux command-line
+remotely. ssh itself is available from Mac and Linux
+on their own command-lines. A popular SSH client for
+Windows is called <a href="http://www.putty.org/">PutTy</a>.
+
+<p>
+However, the commands above only execute Python once you've already written
+a program. In order to write the program, you will need to use a
+separate text editor. Many good alternatives exist. On Linux, the
+usual favorite is<a href="http://www.gnu.org/software/emacs/">emacs</a>
+or <a href="http://www.vim.org/">vim</a>, although ports of these
+exist for Mac and Windows as well.
+On Mac, <a href="http://www.barebones.com/products/textwrangler/">TextWrangler</a>
+is a good free
+version. My personal preference is <a href="http://www.sublimetext.com/">Sublime</a>, which runs on both Mac and
+Linux. It is available for free, but it will nag you for a donation every
+so often when you try to save a file.
+</p>
+
+<h2 id="Mac_Linux">Built-in Python on Mac and Linux</h2>
+
+<p>
+Mac and Linux users already have Python (2.x) installed, and you can use
+those for simple programs. However, when we start using the libraries
+<code>numpy</code>, <code>scipy</code>, and <code>matplotlib</code>,
+among others, you will have to install these manually using whatever
+package manager you prefer. If this sounds like too much trouble to you,
+or you don't know what a package manager is, we recommend you just use
+the Canopy Express distribution above from Enthought.
+</p>
+
+<h2 id="2vs3">Python 3 versus Python 2</h2>
+
+<p>
+We will be using Python 2 for the rest of the quarter, although
+the differences with Python 3 will be mostly unnoticeable.
+Many important libraries for scientific computing and plotting
+data (making pretty pictures) still use Python 2, and so we will, too.
+For more details about the differences between Python 2 and 3,
+see this document: <a href="https://wiki.python.org/moin/Python2orPython3">Python 2 or Python 3?</a>.
+</p>
+
+<h2>Acknowledgments</h2>
+
+<p>
+This file is based on <a href="http://courses.cs.washington.edu/courses/cse140/13wi/computing-resources.html">
+Computing Resources</a> from the class <a href="http://courses.cs.washington.edu/courses/cse140/13wi/">CSE 140: Data Programming</a>
+at the University of Washington.
+</p>
+<!--
+The following Python packages:
+  Scipy
+  Numpy
+  Matplotlib
+  Pyunit
+  Pydot
+  Libxml2
+  IDLE (IDE, should be bundled with Python and therefore requires no extra installation)
+
+Zip/Unzip
+
+Graphviz
+
+-->
+
+<!--  LocalWords:  Enthought MacOS SunOS uname x86 epd rh5 mkdir cd chmod msi
+ -->
+<!--  LocalWords:  ipython PPC Solaris OSX mpkg pyshell matplotlib pyplot plt
+ -->
+<!--  LocalWords:  ImportError dlopen i386 myfile py cmd
+ -->
+</body></html>

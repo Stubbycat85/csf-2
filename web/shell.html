@@ -1,0 +1,196 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- saved from url=(0069)http://courses.cs.washington.edu/courses/cse140/13wi/shell-usage.html -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>How do I use the command-line shell?</title>
+  
+<style>[touch-action="none"]{ -ms-touch-action: none; touch-action: none; }[touch-action="pan-x"]{ -ms-touch-action: pan-x; touch-action: pan-x; }[touch-action="pan-y"]{ -ms-touch-action: pan-y; touch-action: pan-y; }[touch-action="scroll"],[touch-action="pan-x pan-y"],[touch-action="pan-y pan-x"]{ -ms-touch-action: pan-x pan-y; touch-action: pan-x pan-y; }</style></head>
+<body>
+
+<h1>How do I use the command-line shell?</h1>
+
+<p>
+In CSE 140, you use two tools to run Python programs: IDLE and the command-line shell.
+This is a small guide in using the shell.
+</p>
+
+<p>
+The <a href="http://en.wikipedia.org/wiki/Shell_(computing)">command-line
+shell</a>, sometimes called the command prompt or the terminal,
+is a tool that lets you control your computer using only textual
+commands. It offers a lot of power and simplicity (simplicity is different
+from ease of use).
+</p>
+
+<p>
+Just like with a graphical file browser such as the Finder or Windows
+Explorer, there is a "current directory" that you are currently working
+in.  ("Directory" and "folder" are synonyms.)
+You can issue commands that operate in that directory, or you can change
+the current directory.
+</p>
+
+<p>
+This guide presents an example transcript of using the shell for
+<a href="http://courses.cs.washington.edu/courses/cse140/13wi/shell-usage.html#unix">Unix (Mac/Linux)</a> and <a href="http://courses.cs.washington.edu/courses/cse140/13wi/shell-usage.html#windows">Windows</a> machines.
+The transcript assumes that the student has already installed the Enthought Python Distribution as
+described in the <a href="http://courses.cs.washington.edu/courses/cse140/13wi/computing-resources.html">Computing Resources</a>
+page, and has used other programs such as the Finder or
+Windows Explorer to download his/her homework into a directory.
+When you run similar commands, there may be slight differences from the
+example transcript, such as the number, names, and times of files.
+</p>
+
+<p>
+See the section that is relevant to you:
+</p>
+<ul>
+  <li><a href="http://courses.cs.washington.edu/courses/cse140/13wi/shell-usage.html#unix">Mac/Linux</a></li>
+  <li><a href="http://courses.cs.washington.edu/courses/cse140/13wi/shell-usage.html#windows">Windows</a></li>
+</ul>
+
+
+<h2 id="unix">Mac/Linux</h2>
+
+<p>
+Here are most of the commands you will need to use:
+</p>
+<ul>
+  <li><tt>pwd</tt> - print the absolute pathname of your current working directory</li>
+  <li><tt>cd <em>directory</em></tt> - change your working directory to the given directory</li>
+  <li><tt>cd ..</tt> - change your working directory to the parent of the current working directory</li>
+  <li><tt>ls</tt> - list the contents of the current directory ("ls" is short for "list")</li>
+  <li><tt>python</tt> - run the Python interpreter</li>
+  <li><tt>python <em>program.py</em></tt> - run the Python program that is stored in the <tt><em>program.py</em></tt> file</li>
+</ul>
+
+<p>
+You can open a command-line shell by running the <tt>terminal</tt> program.
+</p>
+
+<p>
+In the below example transcript, <tt>$</tt> is the prompt at which the user
+types commands.  <tt>Boldface</tt> text was typed by the user, and
+non-boldface text was printed by the command-line shell.
+</p>
+
+<pre>  <code>
+  $ <strong>pwd</strong>
+  /home/me
+  $ <strong>ls</strong>
+  Desktop    Downloads  Music  Pictures     Public    Templates   Videos
+  Documents  Dropbox    Old    Programming  Software  Ubuntu One  VirtualBox VMs
+  $ <strong>cd Desktop </strong>
+  $ <strong>pwd</strong>
+  /home/me/Desktop
+  $ <strong>ls</strong>
+  CSE140
+  $ <strong>cd CSE140 </strong>
+  $ <strong>pwd</strong>
+  /home/me/Desktop/CSE140
+  $ <strong>ls</strong>
+  homework1  homework2
+  $ <strong>cd homework2 </strong>
+  $ <strong>pwd</strong>
+  /home/me/Desktop/CSE140/homework2
+  $ <strong>ls</strong>
+  answers.txt  data  dna_analysis.py  expected_output
+  $ <strong>python dna_analysis.py data/test-small.fastq </strong>
+  GC-content: 0.3
+  </code>
+</pre>
+
+
+<h2 id="windows">Windows</h2>
+
+<p>
+Here are most of the commands you will need to use:
+</p>
+<ul>
+  <li><tt>echo %cd%</tt> - print the absolute pathname of your current working directory</li>
+  <li><tt>cd <em>directory</em></tt> - change your working directory to the given directory</li>
+  <li><tt>cd ..</tt> - change your working directory to the parent of the current working directory</li>
+  <li><tt>dir</tt> - list the contents of the current directory ("dir" is short for "directory")</li>
+  <li><tt>python</tt> - run the Python interpreter</li>
+  <li><tt>python <em>program.py</em></tt> - run the Python program that is stored in the <tt><em>program.py</em></tt> file</li>
+</ul>
+
+<p>
+You can open a command-line shell by running the <tt>cmd</tt> program.
+<br>
+You
+should have a Command Prompt shortcut located in the Start Menu, in the
+Accessories submenu of All Programs, or on the
+Apps screen for Windows 8.
+About.com has <a href="http://pcsupport.about.com/od/commandlinereference/f/open-command-prompt.htm">more detailed instructions about starting the command prompt</a>.
+</p>
+
+<p>
+In the below example transcript, text such as <tt>C:\Users\Me&gt;</tt> is
+the prompt at which the user types commands.  <tt>Boldface</tt> text was
+typed by the user, and non-boldface text was printed by the command-line
+shell.  Also note that in this example transcript, much irrelevant output
+has been suppressed in order to emphasize the important information.
+</p>
+
+<pre>  C:\Users\Me&gt;<strong>echo %cd%</strong>
+  C:\Users\Me
+
+  C:\Users\Me&gt;<strong>dir</strong>
+   Directory of C:\Users\Me
+
+  06/02/2012  08:11 PM    &lt;DIR&gt;          .
+  06/02/2012  08:11 PM    &lt;DIR&gt;          ..
+  07/18/2012  05:03 PM    &lt;DIR&gt;          Contacts
+  01/10/2013  07:24 PM    &lt;DIR&gt;          Desktop
+  07/18/2012  05:03 PM    &lt;DIR&gt;          Documents
+  01/09/2013  09:59 PM    &lt;DIR&gt;          Downloads
+  07/18/2012  05:03 PM    &lt;DIR&gt;          Favorites
+  07/18/2012  05:03 PM    &lt;DIR&gt;          Links
+  07/18/2012  05:03 PM    &lt;DIR&gt;          Music
+  11/28/2012  09:19 PM    &lt;DIR&gt;          Pictures
+  11/29/2012  01:42 AM    &lt;DIR&gt;          Saved Games
+  07/18/2012  05:03 PM    &lt;DIR&gt;          Searches
+  11/27/2012  09:06 PM    &lt;DIR&gt;          Videos
+
+  C:\Users\Me&gt;<strong>cd Desktop</strong>
+
+  C:\Users\Me\Desktop&gt;<strong>dir</strong>
+   Directory of C:\Users\Me\Desktop
+
+  01/10/2013  07:25 PM    &lt;DIR&gt;          .
+  01/10/2013  07:25 PM    &lt;DIR&gt;          ..
+  01/10/2013  07:25 PM    &lt;DIR&gt;          CSE140
+
+  C:\Users\Me\Desktop&gt;<strong>cd CSE140</strong>
+
+  C:\Users\Me\Desktop\CSE140&gt;<strong>dir</strong>
+   Directory of C:\Users\Me\Desktop\CSE140
+
+  01/10/2013  07:25 PM    &lt;DIR&gt;          .
+  01/10/2013  07:25 PM    &lt;DIR&gt;          ..
+  01/10/2013  07:25 PM    &lt;DIR&gt;          homework1
+  01/10/2013  07:24 PM    &lt;DIR&gt;          homework2
+
+  C:\Users\Me\Desktop\CSE140&gt;<strong>cd homework2</strong>
+
+  C:\Users\Me\Desktop\CSE140\homework2&gt;<strong>dir</strong>
+   Directory of C:\Users\Me\Desktop\CSE140\homework2
+
+  01/10/2013  07:24 PM    &lt;DIR&gt;          .
+  01/10/2013  07:24 PM    &lt;DIR&gt;          ..
+  01/06/2013  05:28 PM               519 answers.txt
+  01/10/2013  07:24 PM    &lt;DIR&gt;          data
+  01/09/2013  09:26 PM             1,866 dna_analysis.py
+  01/10/2013  07:24 PM    &lt;DIR&gt;          expected_output
+
+  C:\Users\Me\Desktop\CSE140\homework2&gt;<strong>python dna_analysis.py data\test-small.fastq</strong>
+  GC-content: 0.3
+</pre>
+
+
+
+
+
+<!--  LocalWords:  pwd submenu
+ -->
+</body></html>
