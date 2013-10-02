@@ -43,4 +43,13 @@ print "Problem 3 solution follows:"
 ### Collaboration
 ###
 
-# ... List your collaborators here, as a comment (on a line starting with "#").
+# ... List your collaborators and other sources of help here (websites, books, etc.),
+# ... as a comment (on a line starting with "#").
+
+###
+### Reflection
+###
+
+# ... Write how long this assignment took you, including doing all the readings
+# ... and tutorials linked to from the homework page. Did the readings, tutorials,
+# ... and lecture contain everything you needed to complete this assignment?
