@@ -1,22 +1,19 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- saved from url=(0074)http://courses.cs.washington.edu/courses/cse140/13wi/homework/hw1/hw1.html -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <title>Homework 1: Welcome to Python</title>
+  <title>Homework 2: Loops</title>
   
 <style>[touch-action="none"]{ -ms-touch-action: none; touch-action: none; }[touch-action="pan-x"]{ -ms-touch-action: pan-x; touch-action: pan-x; }[touch-action="pan-y"]{ -ms-touch-action: pan-y; touch-action: pan-y; }[touch-action="scroll"],[touch-action="pan-x pan-y"],[touch-action="pan-y pan-x"]{ -ms-touch-action: pan-x pan-y; touch-action: pan-x pan-y; }</style></head>
 <body>
-<h1>Homework 1: Welcome to Python</h1>
+<h1>Homework 2: Loops and Lists</h1>
 
 <p>
-<b>Due: Thursday, 10/3, 11:59pm</b>
-via GitHub. Come to lab on Thursday to learn how to submit your assignments
-using GitHub.
+<b>Due: Friday, 10/3, 11:59pm</b>
+via GitHub. Write your solutions in the file <code>hw2.py</code>, as downloaded below.
 </p>
 
 <p>
-This assignment will familiarize you with the Python programming language.
-Python is an easy-to-use but powerful programming language that is
-particularly well-suited to quickly creating small programs.
+This assignment will familiarize you with loops.
 </p>
 
 <p>
@@ -25,105 +22,58 @@ and a text editor, or using graphical environments. Instructions for
 both will be provided below. Although the command-line interface is
 harder to learn, it will give experts greater power, flexibility, and
 speed in performing programming tasks in the future.
+Remember the following resources from Homework 1.
+<ul>
+<li><a href="python.html">Installing and using Python</a></li>
+<li><a href="github.html">Using GitHub and Turning in your Homework</a></li>
+</ul>
+</p>
 </p>
 
-<h1 id="part-i">Part I:  Get started with Python</h1>
+<h2>Preliminaries</h2>
 
 <p>
-If you need to install Python on your own machine or figure out how to use it on campus,
-see <a href="python.html">Using and Installing Python</a>.
-</p>
-
-<p>
-Read (and follow along with!)
-<a href="https://hkn.eecs.berkeley.edu/~dyoo/python/idle_intro/">a short tutorial for IDLE</a>.
-</p>
-
-<!-- <p>
-Optionally, follow the first parts of
-<a href="http://cscircles.cemc.uwaterloo.ca/">a Python tutorial</a>.
-</p>
--->
-
-<!-- I'm not thrilled with this other tutorial: http://www.learnpython.org/ -->
-
-<!--
-Don't advertise this Python tutorial, which is for Python 3:
-http://centurion2.com/Python/PythonIntro.html
-(Ignore the "Installation" parts, which do not use the
-Enthought Python Distribution.)
--->
-
-<p>
-There is nothing to turn in for Part I of the assignment.
-</p>
-
-
-
-<h1 id="part-ii">Part II:  Programming exercises</h1>
-
-<p>
-Download the file <a href="hw1.py"><tt>hw1.py</tt></a>.
+Clone your GitHub repository onto your local computer, into a directory
+of your choosing, which we'll call your <i>local working directory</i>.
+Download the files <a href="hw2.py"><tt>hw2.py</tt></a>
+ <a href="hw2_test.py"><tt>hw2_test.py</tt></a>
+  into your
+local working directory.
 </p>
 
 <p>
 For problems in this homework, you will edit your local copy of the
-<tt>hw1.py</tt> file.
-You may do your work by editing and running <tt>hw1.py</tt> (we recommend
+<tt>hw2.py</tt> file. Save this file in your local git repository,
+then use the GitHub graphical interface, or git on the command-line,
+to commit and sync this copy with your github.com account online.
+</p>
+
+<p>
+You may do your work by editing and running <tt>hw2.py</tt> (we recommend
 this approach), or by typing code at the Python interpreter (or in an
 IDLE window) and copying it into
-the appropriate part of <tt>hw1.py</tt> when you are satisfied with it.
-When you have completed this homework, running the <tt>hw1.py</tt> file
+the appropriate part of <tt>hw2.py</tt> when you are satisfied with it.
+When you have completed this homework, running the <tt>hw2.py</tt> file
 should compute and print the answers to all the problems.
 </p>
 
 <p>
 Don't forget to include documentation (source code comments, on a line
-starting with <tt>#</tt>) as appropriate in file <tt>hw1.py</tt>.
+starting with <tt>#</tt>) as appropriate in the file <tt>hw2.py</tt>.
 </p>
 
-
-<h2>Problem 1: Roots</h2>
-
-<!--
-<p>
-Compute the larger root of the quadratic equation
-13 x<sup>2</sup>+78x-5083.
-</p>
--->
+<h2>Problem 1: Gauss's Problem</h2>
 
 <p>
-Compute and print both roots of the quadratic equation
-x<sup>2</sup>-5.86 x+ 8.5408.
+Use a <code>while</code> loop to solve Gauss's general problem from
+<a href="../seminar/seminar1.pdf">Seminar 1</a>, adding all the
+natural numbers from 1 to <code>n</code> (not just 1 to 100).
+Do NOT use the
+formula, if you discovered it, but instead, manually add
+the numbers together one-by-one. Import the variable <code>n</code>
+from the module <code>hw2_test</code> and use that to test
+when to exit from your while loop.
 </p>
-
-<p>
-Hint: recall that the roots of a quadratic equation ax<sup>2</sup>+bx+c are x=
-</p>
-<table style="font-family:verdana;">
-  <tbody><tr>
-    <td>−b ± 
-    √<span style="text-decoration:overline"> 
-    b<span style="font-size: 10px;vertical-align:+25%;">2</span> − 
-    4ac&nbsp;</span></td>
-  </tr>
-  <tr>
-    <td style="text-align:center;">
-    <span style="text-decoration:overline;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-    2a &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>
-    </td>
-  </tr>
-</tbody></table>
-
-<p>
-Hint: use the
-<a href="http://docs.python.org/library/math.html#math.sqrt"><tt>math.sqrt</tt></a>
-function to compute the square root.  (If you are using the Python
-interpreter, you need to first do <tt>import math</tt>.  This already
-appears in the <tt>hw1.py</tt> file that you will be editing, so everything
-is already set up for you if you are working within that file.)
-</p>
-
 
 <h2>Problem 2: Reciprocals</h2>
 
@@ -235,7 +185,7 @@ Hint:  Use two nested <tt>for</tt> loops.<br>
 The outer loop sets the value of <tt>n</tt>
 to the values <tt>numlines</tt>, <tt>numlines-1</tt>, <tt>numlines-2</tt>, ..., <tt>1</tt>, in succession.<br>
 Then, the body of that loop
-is itself a loop — exactly your solution to <a href="http://courses.cs.washington.edu/courses/cse140/13wi/homework/hw1/hw1.html#factorial">"Problem 4: Factorial"</a>,
+is itself a loop — exactly your solution to Problem 4
 without the first line <tt>n = 10</tt> that hard-codes the value of <tt>n</tt>.
 </p>
 
@@ -280,34 +230,59 @@ for example).
 </p>
 
 <p>
-At the bottom of your <tt>hw1.py</tt> file, state which students or
+At the bottom of your <tt>hw2.py</tt> file, state which students or
 other people (besides the course staff) helped you with the assignment, or
 that no one did.
 </p>
 
-<p>
-At the bottom of your <tt>hw1.py</tt> file, in the "Reflection" part, state
-what you or the staff could have done to help you with the assignment.
-</p>
+<h2>Collaborators</h2>
 
 <p>
-Submit the following files via this 
-<a href="https://gradeit.cs.washington.edu/uwcse14x/public/140/13wi/homework/turnin/a1.html">turnin page.</a>
+Be sure to list your collaborators, or any websites or
+other sources of information that you used.
 </p>
-<ul>
-  <li><tt>hw1.py</tt></li>
-</ul>
 
+<h2>Reflection</h2>
 
 <p>
-Answer a
-<a href="https://catalyst.uw.edu/webq/survey/mernst/188812">survey</a>
-about how much time you spent on this assignment.
+In the comments of your submitted source file, write how long
+this assignment took you, including doing readings and
+tutorials. Did the readings, tutorials, and lecture
+contain everything you needed to know to solve this problem?
 </p>
 
+<h2>Submitting your homework</h2>
 
+<p>
+Following the turn-in procedure we did in Lab 1.
+</p>
 
-
+<ol>
+<li>
+First, make sure you have the GitHub graphical interface
+installed (on Mac OS X 10.7 or later, or on Windows),
+or the git command-line tool. Follow the instructions
+here:
+<a href="hw2.html">Git, GitHub, and Turning in your programming homework</a>
+<li>
+Clone / pull your CSF repository to a local working directory,
+if you haven't already done so. You can click the "Sync Branch" button
+in the graphical GitHub interface in the upper-right corner.
+<img src="https://www.evernote.com/shard/s73/sh/2cd0be91-854e-4309-8b0b-30c2b93bfcc4/99b83539d58e3754c3bffdd877b98f0e/res/fd2d69b8-4a48-403e-be07-2ae875d40725/skitch.png?resizeSmall&width=832" />
+On the git command-line, you can type
+<code>git pull origin master</code>.
+</li>
+<li>
+Download or copy your files <code>hw2.py</code>
+<code>hw2_test.py</code> into your
+local working directory.
+</li>
+<li>
+When you are done adding your solutions to those files,
+commit your changes in GitHub / git and push/sync them.
+</li>
+</ol>
+</p>
 
 <!--  LocalWords:  hw1 py 78x 4ac 2a CollectIt Dropbox ILDE 78x 4ac 2a
  -->
