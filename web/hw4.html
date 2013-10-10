@@ -1,0 +1,222 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- saved from url=(0077)file:///Users/ppham/src/cse140/13wi/assignments/2-dna-analysis/homework2.html -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+  <title>Homework 4:  DNA analysis (Part 2)</title>
+  
+</head>
+<body>
+<h1>Homework 4:  DNA analysis (Part 2)</h1>
+
+<p>
+<b>Due</b>: at 5pm on Friday, October 25.
+Create a release of your homework submission as <code>hw4</code>.
+Follow instructions for tagging (creating a release) given in Lab 2.
+</p>
+
+<p>
+You will continue your solution from Homework 3 about computing the GC content of DNA
+data. Read that homework again to remind yourself of the problem background.
+</p>
+
+
+<h2 id="problem5">Problem 5: Count nucleotides</h2>
+
+<p>
+Augment your program so that it also computes and prints the number of 
+A nucleotides, the number of T nucleotides, the number of G nucleotides,
+and the number of C nucleotides.
+</p>
+
+<p>
+When doing this, add at most one extra loop to your program.  You can solve
+this part without adding any new loops at all, by reusing an existing loop.
+</p>
+
+<p>
+Check your work by manually computing the results for file
+<tt>test-small.fastq</tt>, then comparing them to the output of running your
+program on <tt>test-small.fastq</tt>.
+</p>
+
+<p>
+Run your program on <tt>sample_1.fastq</tt>. Cut-and-paste the relevant lines
+of output into <tt>answers.txt</tt> (the lines that indicate the G count, C
+count, A count, and T count).
+</p>
+
+
+
+<h2 id="problem6">Problem 6: Sanity-check the data</h2>
+
+<p>
+For each of the 11 <tt>.fastq</tt> files, compare the following three quantities:
+</p>
+<ul>
+  <li>the sum of the A count, the C count, the G count, and the T count
+  </li>
+  <li>the <tt>total_count</tt> variable
+  </li>
+  <li>the length of the <tt>seq</tt> variable.  You can compute this with <tt>len(seq)</tt>.
+  </li>
+</ul>
+
+<p>
+In other words, compute the three numbers for <tt>test-small.fastq</tt>
+and determine whether they are equal or different.  Then do the same for 
+<tt>test-high-gc-1.fastq</tt>, etc.
+</p>
+
+<p>
+For at least one file, at least two of these metrics will differ.  In your
+<tt>answers.txt</tt> file, state which file(s) and which metrics.
+(If all the metrics are equal for each file, then your code contains a mistake.)
+In your <tt>answers.txt</tt> file, write a short paragraph that explains why.
+</p>
+
+<p>
+Explaining why (or debugging your code if all the metrics were the same)
+might require you to do some detective work.  For instance, to understand
+the issue, you may need to load a file into a text editor and examine it.
+We strongly suggest that you start with the smallest file for which the
+numbers are not all the same.  Perusal of the file may help you.  Failing
+that, you can manually compute each of the counts, and then compare your
+manual results to what your program computes to determine where the error
+lies.  A final approach would be to modify your program, or create a new
+program, to compute the three metrics for each line of a file separately:
+if the metrics differ for an entire file, then they must differ for some
+specific line, and then examining that line will help you understand the
+problem.
+</p>
+
+<p>
+If all of the three quantities that you measured in
+<a href="file:///Users/ppham/src/cse140/13wi/assignments/2-dna-analysis/homework2.html#problem6">problem 6</a> are the same, then it would not matter
+which one you used in the denominator when computing the GC content. In
+fact, you saw that the numbers are not the same.  In file
+<tt>answers.txt</tt>, state which of these quantities can be used in the
+denominator and which cannot, and why.
+</p>
+
+<p>
+<em>If</em> your program incorrectly computed the GC content (which should be
+equal to (G+C)/(A+C+G+T)), then state that fact in your <tt>answers.txt</tt>
+file.  Then, go back and correct it, and also update any incorrect answers
+elsewhere in your <tt>answers.txt</tt> file.
+</p>
+
+
+<h2 id="problem7">Problem 7: Compute the AT/GC ratio</h2>
+
+<p>
+Sometimes biologists use the AT/GC ratio, defined as (A+T)/(G+C), rather
+than the GC-content, which is defined as (G+C)/(A+C+G+T).
+</p>
+
+<p>
+Modify your program so that it also computes the AT/GC ratio.
+</p>
+
+<p>
+Check your work by manually computing the results for file
+<tt>test-small.fastq</tt>. Compare them to the output of running your
+program on <tt>test-small.fastq</tt>.
+</p>
+
+<p>
+Run your program on <tt>sample_1.fastq</tt>. Cut-and-paste the relevant lines
+of output into <tt>answers.txt</tt> (the line that indicates the AT/GC ratio).
+</p>
+
+
+<h2 id="problem8">Problem 8: Categorize organisms</h2>
+
+<p>
+The GC content can be used to categorize microorganisms.<br>
+Modify your program to print out a classification of the organism in the file.<br>
+If the GC content is above 60%, the organism is considered “high GC content”.<br>
+If the GC content is below 40%, the organism is considered “low GC content”.<br>
+Otherwise, the organism is considered “moderate GC content”.
+</p>
+
+<p>
+Biologists can use GC content for classifying species, for determining the
+melting temperature of the DNA (useful for both ecology and
+experimentation, for example
+<a href="http://en.wikipedia.org/wiki/Polymerase_chain_reaction">PCR</a> is
+more difficult on organisms with high
+GC content), and for other purposes.  Here are some examples:<br>
+The GC content of Streptomyces coelicolor A3(2) is 72%.<br>
+The GC content of Yeast (Saccharomyces cerevisiae) is 38%.<br>
+The GC content of Thale Cress (Arabidopsis thaliana) is 36%.<br>
+The GC content of Plasmodium falciparum is 20%.
+</p>
+
+<p>
+Again, test your work.  The <tt>test-small.fastq</tt> file has low GC
+content.  We have provided four other test files, whose names explain
+their GC content: <tt>test-moderate-gc-1.fastq</tt>,
+<tt>test-moderate-gc-2.fastq</tt>, <tt>test-high-gc-1.fastq</tt>,
+<tt>test-high-gc-2.fastq</tt>.
+</p>
+
+<p>
+After your program works for all the test files, run it on
+<tt>sample_1.fastq</tt>. Cut-and-paste just the relevant line of output from
+your program into <tt>answers.txt</tt>.
+</p>
+
+
+<h2 id="submit">Collaboration and Reflection</h2>
+
+<p>
+You are almost done!
+</p>
+
+<p>
+At the bottom of your <tt>answers.txt</tt> file, in the “Collaboration”
+part, state which students or
+other people (besides the course staff) helped you with the assignment, or
+that no one did.
+</p>
+
+<p>
+At the bottom of your <tt>answers.txt</tt> file, in the “Reflection” part,
+reflect on this assignment.
+  What did you learn from this assignment?  What do you wish you had known
+  before you started?  What would you do differently?  What advice would
+  you offer to future students?
+</p>
+
+<p>
+Submit the following files via this
+<a href="https://gradeit.cs.washington.edu/uwcse14x/public/140/13wi/homework/turnin/a2.html">turnin page.</a>
+</p>
+<ul>
+  <li><tt>dna_analysis.py</tt></li>
+  <li><tt>answers.txt</tt></li>
+</ul>
+
+<p>
+Please validate your <tt>dna_analysis.py</tt> program's output using the
+<a href="http://www.diffchecker.com/diff">Diff Checker</a> before submitting
+your assignment. You can compare your output to the files given in the
+<tt>expected_output</tt> directory of the homework2 files.
+</p>
+
+<!--  LocalWords:  GC nucleotides nucleotide nucleobase homework2 dna py txt gc
+ -->
+<!--  LocalWords:  CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC fastq linenum len A3
+ -->
+<!--  LocalWords:  hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh Streptomyces coelicolor
+ -->
+<!--  LocalWords:  GTGGGGGTGATGTCCACGATTACGCCGACCGGCTGG Saccharomyces Thale
+ -->
+<!--  LocalWords:  cerevisiae Arabidopsis thaliana Plasmodium falciparum
+ -->
+<!--  LocalWords:  11pm CollectIt Dropbox metadata 11pm orking irectory cd
+ -->
+<!--  LocalWords:  hange pneumoniae TIGR4 herpesvirus pwd rint PCR turnin
+ -->
+<!--  LocalWords:  IDLE's 'dna py'
+ -->
+</body></html>
