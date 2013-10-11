@@ -1,0 +1,94 @@
+\documentclass{article}
+
+\usepackage[osf]{mathpazo} % Use Palatino / Euler fonts
+\usepackage{epsfig}
+\usepackage{graphicx}% Include figure files
+
+\usepackage{listings}
+\usepackage{color}
+
+\usepackage{enumerate}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=Java,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true
+  tabsize=3
+}
+
+\title{Computer Science Foundations\\ Puzzle-Solving Workshop and Seminar\\
+\large{Episode 2---October 7}\\
+Fall 2013}
+
+\author{Paul Pham and Neal Nelson}
+
+\begin{document}
+
+\maketitle
+
+Welcome to the Puzzle-Solving Workshop and Seminar for
+Computer Science Foundations. You will notice there are
+two parts to this thread: \emph{workshop} and \emph{seminar}.
+Workshop is meant to strengthen your problem-solving skills,
+to help you in the Discrete Math thread as well as future
+math and computer science courses. Seminar is meant to
+work on your discussion, writing, and creativity skills.
+
+In today's workshop (the first hour), we will go over the
+solutions to last week's problems (Gauss's problems and
+Ada's problems) and grade each other's work. We will
+also receive one new problem to test the propositional
+logic skills you learned in Discrete Math lecture last week.
+
+In today's seminar (the second hour), we will generate ideas
+in groups for your academic statement, then we will freewrite.
+To generate ideas, we will divide up into groups of five again
+with the three roles we discussed last time: timekeeper,
+notetaker, and moderator.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Problem 1}
+
+Now we will test how general your solution was to Gauss's problem
+from Workshop 1. Write the sum of all the \emph{even} numbers
+from $2$ to $n$.
+
+\begin{equation}
+\Theta =  2 + 4 + 6 + \ldots + n
+\end{equation}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Problem 2}
+
+This builds on Ada's problem from Workshop 1. Consider the final
+version of that problem where Ada uses three boolean inputs to
+determine whether or not to bike to school:
+\texttt{thunderAndLightning}, \texttt{classAt10OClock},
+and \texttt{isTired}.
+
+\begin{enumerate}[(a)]
+\item
+Given that Ada chooses to bike to school, what are all the
+possible values of the three input variables that can lead
+to this outcome?
+\item
+What is the equivalent boolean logic expression (using
+\texttt{and}, \texttt{or}, \texttt{not}) in Python
+for expressing Ada's decision-making rules in a single line?
+\end{enumerate}
+
+\end{document}
