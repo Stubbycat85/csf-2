@@ -1,0 +1,219 @@
+\documentclass{article}
+
+\usepackage[osf]{mathpazo} % Use Palatino / Euler fonts
+\usepackage{epsfig}
+\usepackage{graphicx}% Include figure files
+
+\usepackage{listings}
+\usepackage{color}
+
+\usepackage{enumerate}
+\usepackage{graphicx}
+\usepackage{url}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=Java,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true
+  tabsize=3
+}
+
+\title{Computer Science Foundations\\ Puzzle-Solving Workshop and Seminar\\
+\large{Episode 3---October 14}\\
+Fall 2013}
+
+\author{Paul Pham and Neal Nelson}
+
+\begin{document}
+
+\maketitle
+
+Welcome to the Puzzle-Solving Workshop and Seminar for
+Computer Science Foundations. You will notice there are
+two parts to this thread: \emph{workshop} and \emph{seminar}.
+Workshop is meant to strengthen your problem-solving skills,
+to help you in the Discrete Math thread as well as future
+math and computer science courses. Seminar is meant to
+work on your discussion, writing, and creativity skills.
+We will alternate between the two different modes.
+
+Today we will be in workshop mode only. We will go over the
+solutions to last week's problems (Gauss's problems and
+Ada's problems). We will teach other in a special
+group exercise that doubles in size each time and
+finally includes the entire class.
+
+The following workshop problems are taken from
+Sherri Shulman's Discrete Math Workshop on October 8, 2012.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Problem 1: Logic Symbols}
+
+Ada and Carl Friedrich (Gauss) decide to play a game by only speaking in
+propositional logic variables. They define the following
+variables to stand for English sentences about the weather,
+and then they will use them to reason about facts about
+the weather.
+
+\begin{tabular}{|r|c|l|}
+$c$ & = & ``It is cloudy.'' \\
+$r$ & = & ``It is raining.'' \\
+$s$ & = & ``It is sunny.'' \\
+$w$ & = & ``It is night.''
+\end{tabular}
+
+Ada comes up with three rules, or things that she
+believes to be true about the weather.
+
+\begin{itemize}
+\item If it is cloudy, it cannot be sunny.
+\item If it is not sunny, then it is either cloudy or it is nighttime.
+\item If it is rainy, the ground is wet and it is cloudy.
+\end{itemize}
+
+\begin{enumerate}[(a)]
+\item
+Translate each of Ada's rules above into propositional logic,
+using the variables $c$, $s$, $n$, and $r$ combined with the
+logical operators $\land$, $\lor$, and $\lnot$.
+\end{enumerate}
+
+In response, Carl also comes up with three rules, or things that she
+believes to be true about the weather.
+
+\begin{itemize}
+\item It is raining when the ground is wet.
+\item If it's sunny, then its not raining.
+\item It only rains at night.
+\end{itemize}
+
+\begin{enumerate}[(b)]
+\item
+Likewise, translate all of Carl's rules into propositional logic.
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Problem 2: Tautologies, Contradictions, and Everything in Between}
+
+Ada and Carl notice a curious thing about logic. Some propositional
+logic expressions are true no matter what. If you were to draw out their
+truth table, they would always evaluate to \textsf{True}.
+These are called \emph{tautologies}. It doesn't matter what the variables
+stand for. They could be sentences about weather like in the previous
+example, or anything else, or completely meaningless symbols.
+
+Ada and Carl are so excited about tautologies that they decide
+to form a club about them.
+
+\includegraphics[width=5in]{xkcd_honor_societies.png}
+
+Moreover, there are logical expressions that are always false
+no matter what. These are called \emph{contradictions}.
+Then there are expressions which are true or false
+depending on their input variables. Most logical
+expressions fall in this category.
+
+\begin{enumerate}[(a)]
+\item
+Create a truth table for each of the following expressions.
+Determine whether they are always true (a tautology),
+always false (a contradiction), or neither.
+\begin{itemize}
+\item $(p \lor q) \land (\lnot p \lor q)$
+%\item $(p \lor q) \rightarrow (\lnot p \land q)$
+\item $p \rightarrow (\lnot p \rightarrow q)$
+\item $(\lnot (p \land q)) \leftrightarrow (\lnot p \lor \not q)$
+\end{itemize}
+\end{enumerate}
+
+In their tautology club, Ada and Carl spend a lot of time separating
+all the logical expressions in the world into three categories:
+tautologies, contradictions, and everything else. To do this,
+they must decide
+whether two expressions are logically equivalent, and they need your help.
+
+\begin{enumerate}[(b)]
+\item
+Ada and Carl need to know whether $p \rightarrow q$ and $\lnot q \rightarrow \lnot p$
+are logically equivalent. Ada likes to use truth tables, because they seem
+sure and foolproof, while Carl likes to take shortcut and use
+logical symbols and operators.
+
+Are these two expressions equivalent?
+
+\begin{itemize}
+\item First use Ada's method and write out the truth tables for both expressions.
+\item Then use Carl's method and try to transform one expression into the other using
+logical equivalence rules that you learned in class.
+\end{itemize}
+
+\item
+Carl tries to convince Ada that truth tables take much too long for
+even small numbers of boolean variables. Without using truth tables,
+show that $\lnot p \rightarrow (q \rightarrow r)$ and
+$q \rightarrow (p \lor r)$ are logically equivalent. How many rows
+would the corresponding truth table have for each expression?
+
+\item
+Ada believes that truth tables are the best way to represent
+logical expressions because they are complete and visual. Everything
+is laid out in neat rows for you to see, and they are always the
+same size. Logical expressions are sometimes more compact,
+but some expressions are just as long as their truth tables!
+Furthermore, it's hard to know whether you've found the shortest
+or the \emph{best} logical expression, since it can take on
+multiple equivalent forms.
+She challenges Carl to find a logical expression corresponding
+to the following truth table, and he needs your help.
+
+\begin{center}
+\begin{tabular}{|ccc|c|}
+\hline
+p & q & r & ?? \\
+\hline
+T & T & T & T \\
+T & T & F & F \\
+T & F & T & F \\
+T & F & F & T \\
+F & T & T & F \\
+F & T & F & T \\
+F & F & T & F \\
+F & F & F & F \\
+\hline
+\end{tabular}
+\end{center}
+
+\item
+\textbf{Optional}
+Help convince Ada that logical expressions can often be useful and
+more compact than their corresponding truth tables. Generalize your
+method in the previous problem to apply to any number of variables,
+for any truth table. This is what we mean when we say that
+$\lnot$, $\land$, and $\lor$ are a complete (universal) set
+of logical connectives.
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Reading for Discussion Next Time}
+
+Read the following chapter from Lauren Ipsum for next Monday's workshop/seminar:
+``A Tinker's Trade'' at \url{http://www.laurenipsum.org/tinker}.
+Come prepared to discuss algorithms, loops, notions of
+``sameness'' and ``differentness'' between two pieces of code,
+and how to combine two different pieces of code into the same one.
+
+\end{document}
