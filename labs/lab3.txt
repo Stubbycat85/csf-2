@@ -1,0 +1,13 @@
+Write a Python program, saved in a file called lab3.py to do the following:
+
+It contains a variable n, to which you assign some integer.
+It contains a variable series, to which you assign some string of characters (Read Think Python 8.1)
+
+if the variable series is equal to the string 'fibonacci'  (read Think Python 5.2 for comparison operators)
+then compute and print the nth fibonacci number, as defined in lecture on Tuesday.
+
+otherwise if the variable series is equal to the string 'sum'
+then compute and print the sum of the numbers 3 + 6 + 9 + … + 3n
+(read Think Python 5.6)
+
+otherwise print the string "Invalid string"
