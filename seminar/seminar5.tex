@@ -1,0 +1,257 @@
+\documentclass{article}
+
+\usepackage[osf]{mathpazo} % Use Palatino / Euler fonts
+\usepackage{epsfig}
+\usepackage{graphicx}% Include figure files
+
+\usepackage{listings}
+\usepackage{color}
+
+\usepackage{enumerate}
+\usepackage{graphicx}
+\usepackage{url}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=Java,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true
+  tabsize=3
+}
+
+\title{Computer Science Foundations\\ Puzzle-Solving Workshop and Seminar\\
+\large{Episode 5---October 28}\\
+Fall 2013}
+
+\author{Paul Pham and Neal Nelson}
+
+\begin{document}
+
+\maketitle
+
+Welcome to the Puzzle-Solving Workshop and Seminar for
+Computer Science Foundations. You will notice there are
+two parts to this thread: \emph{workshop} and \emph{seminar}.
+Workshop is meant to strengthen your problem-solving skills,
+to help you in the Discrete Math thread as well as future
+math and computer science courses. Seminar is meant to
+work on your discussion, writing, and creativity skills.
+We will alternate between the two different modes.
+
+Today we will be in workshop mode only. We will go over the
+solutions to last week's problems (Gauss's problems and
+Ada's problems). We will teach other in a special
+group exercise that doubles in size each time and
+finally includes the entire class.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Quantified Love}
+
+``Let us talk about love,'' Ada says suddenly as she and Carl are sitting
+on the grass, enjoying one of the few sunny afternoons left to them that
+autumn.
+
+``Yes, let's'' asks Carl, who thought this was supposed to be a date.
+
+``Consider,'' Ada says, raising her finger as she does when she's about to
+pose a logical problem. ``Let's use the logical statement $P(x,y)$ to mean that
+$x$ is $y$'s soulmate.''
+
+``Hmmm, do you believe that people have soulmates?''
+Carl tries to steer the conversation away from discrete math, which is how all
+their conversations end. Perhaps some philosophy would be romantic\ldots
+``Or that people even have souls?''
+
+``This is just logic. I'll let other people worry about belief and souls.''
+Ada opens her notebook and begins to write.
+``We will consider the statement $P(x,y)$ over the domain of all people in
+the world.''
+
+Carl stews quietly in his disappointment.
+
+Regardless, satisfy Ada's curiosity by
+translating the following quantified propositional logic statements into
+English and decide whether they are true, based on your opinion. Justify it,
+using normal, non-logical arguments.
+
+\begin{enumerate}[(a)]
+\item
+$\forall x \exists y P(x,y)$
+\item
+$\exists x \forall y P(x,y)$
+\item
+$P(x,y) \leftrightarrow P(y,x)$
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{A Puzzle About Fidelity}
+
+Carl wants to show Ada that it is ridiculous to reduce human
+relationships to logical statements. To do so, he makes up a
+fable that is so absurd, Ada will have to give up in frustration
+and see his point.\footnote{Note that Google and Microsoft have
+asked a hetero-normative version of this puzzle in past job
+interviews.}
+
+This is what he says:
+
+\begin{quote}
+A village consists of 100 married couples of a specific form.
+Each couple consists of a Jealous Partner and a Sketchy
+Partner.
+Every Jealous Partner in the village knows if
+a Sketchy Partner other than his or her partner has cheated, but does not
+know if her or his own partner has.
+The village has a law that does not allow for adultery.
+Any Jealous Partner who can prove that her or his partner
+is unfaithful must chase her or him out of
+the village that very day.
+The people of the village would never disobey this law.
+One day, the fabulous drag queen of the village visits and
+announces that exactly one Sketchy Partner has been unfaithful.
+At the end of that day, the law must be enforced,
+and the law can only be enforced once per day.
+\end{quote}
+
+``So, what happens?'' Carl asks, half-smiling.
+
+Ada taps her finger to her lips in curiosity,
+``Hmm, that's very interesting.'' Instead of
+thinking the fable is absurd, she immediatedly
+beings scribbling in her notebook and launches
+into it. ``Here are some things we should
+consider.''
+
+\begin{enumerate}[(a)]
+\item
+Make up a propositional logic symbol with two variables
+for the sentence ``Sketchy Partner $x$ and Jealous Partner $y$ are married.''
+\item
+Translate the sentence ``Every Sketchy Partner $x$ in the village is
+married to a Jealous Partner $y$ and not to any other Jealous Partner in the village.''
+into quantified propositional logic.
+We will consider the domain of the sentence over the 100
+couples in the village, in this and every other problem below.
+\item
+Translate the sentence ``Every Jealous Partner $x$ in the village is
+married to a Sketchy Partner $y$ and not to any other Sketchy Partner in the village.''
+into quantified propositional logic.
+\item
+Are the previous two logical statements equivalent?
+\item
+Translate the sentence ``Sketchy Partner x has cheated on his or her Jealous Partner.''
+into propositional logic.
+\item
+Make up a quantified propositional logic statement, using the above
+problems,
+for the sentence ``Jealous Partner $y$ has evidence that her or his Sketchy Partner has cheated.''
+\item
+Make up a quantified propositional logic statement, using the above
+problems,
+for the sentence ``Jealous Partner $y$ chases her or his Sketchy Partner out of the village.''
+\item
+Express the rule of the village using the previous two problems.
+\item
+Make up a quantified propositional logic symbol for
+the drag queen's incriminating statement:
+``Exactly one Sketchy Partner in the
+village has cheated on her or his Jealous Partner.''
+\item
+Using all the previous problems,
+write a quantified propositional logic statement that describes
+what happens at the end of the day, in answer to Carl's question.
+\end{enumerate}
+
+\section{Sets}
+
+``But now,'' Ada continues, despite Carl's exasperation,
+``let's assume that the female impersonator---''
+
+``The what?'' Carl interrupts, confused about what is even going on anymore.
+
+``The drag queen. Drags queens are also called female impersonators.
+Some of them can be very convincing.''
+
+``You don't mean that\ldots'' Carl trails off in disbelief, his eyes
+widening.
+
+``I don't know \emph{what} you're talking about.'' Ada scoffs.
+``Let's assume that the drag queen says that \emph{more than one}
+Sketchy Partner has cheated.''
+
+\begin{enumerate}[(a)]
+\item
+Make up a symbol to represent the set of all cheating Sketchy Partners,
+and make up another symbol for its size (the number of cheating partners).
+\end{enumerate}
+
+``We can also consider the set of sets of the Cheaters that a
+Jealous Partner knows about. I wonder what we can describe
+using set notation.'' Ada stares into the sky.
+
+Carl decides he must put his brain to use in order to impress
+Ada. After all, he added up all the integers from 1 to
+100, surely he could figure something out in this case.
+Help Carl with the following problems.
+
+\begin{enumerate}[(b)]
+\item
+Make up a different symbol with a subscript $x$ to represent the
+set of Cheating Partners that a Jealous Partner $x$ knows about.
+\item
+Express the set in part $(a)$ using the sets in part $(b)$,
+using the symbols you defined and the symbols for set operations
+(difference, union, or complement)
+\end{enumerate}
+
+``I wonder,'' says Carl, ``if we can represent the
+\emph{non}-cheating Sketchy Partners using my notation.''
+
+``That's a pretty good question, Carl,'' Ada says,
+looking at Carl as if noticing him for the first time.
+Carl opens his mouth to say something charming, just
+as Ada's eye is caught by Elise De Morgan waving from across
+the campus.
+
+``Hey Ada,'' Elise says, as she walks up. ``Hey Carl.
+What are you guys working on?''
+
+``Nothing you'd care about, De Morgan,
+really, see you later,''
+Carl tries to get rid of the newcomer.
+
+``Haha, always joking, Carl. But De Morgan is my dad's name.
+Just call me Elise.''
+
+``Hey, Elise. Maybe you can help us,'' Ada says.
+``Since your dad is so good at rules of inference and Boolean logic.
+Did he teach you anything about it?''
+
+``I might remember a thing or two,'' Elisa says, ``let's take a look.''
+
+\begin{enumerate}[(d)]
+\item
+Express the set of all \emph{non}-Cheating Partners
+using your set notation from all previous problems.
+\end{enumerate}
+
+Will Carl or Elise win Ada's affection, or someone else
+entirely?
+Will Ada ever stop thinking about logic?
+Unlock the next episode to find out!
+To be continued\ldots
+
+\end{document}
