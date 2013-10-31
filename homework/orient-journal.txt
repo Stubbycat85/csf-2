@@ -1,0 +1,164 @@
+Journal for converting the Orient Express text game from BASIC to Python.
+
+Paul Pham [2013-10-27]
+
+I wanted to translate an old BASIC program "The Orient Express" by David Ahl
+in 1986.
+I remember checking out a book from the library with the source code listings
+of a
+bunch of old text adventure games, including Oregon Trail. That's how you had
+to
+enter BASIC programs back then, type them in by hand, or download from a disk or a
+bulletin board service (dialing in by modem), from someone who *had* typed it in by
+hand, maybe even the original author. Sometimes the programs were even free, but you
+were paying for the service of not having to type in your own programs.
+
+Okay, enough digression. I google online for "orient express basic text game" and get
+it on the first hit, despite the word "basic" being a common English word.
+
+	http://jbfilesarchive.com/phpBB3/viewtopic.php?f=4&t=821
+
+Line numbers 100 through 3330! Ah, programs with enforced line numbers again,
+in multiples of 10 so that you can go back and insert more lines if you make
+mistakes.
+But in Sublime, I can see that it takes 325 lines, so some of the lines got
+skipped or removed.
+
+	100 CLS : KEY OFF : ON ERROR GOTO 3160
+
+The first line of the screen is CLS, which I remember means
+"clear the screen." I don't know how to do that in Python, but in Linux/Mac it's
+just the "clear" command, and on Windows it's "cls". So I google for the answer and
+get the following answer on StackOverflow (as usual):
+
+	http://stackoverflow.com/questions/2084508/clear-terminal-in-python
+
+Then I pause to create a StackExchange account (the parent company for StackOverflow)
+so I can upvote the answer as helpful (it was at 50, I'm gonna bump it up to 51).
+Hmm, I need 15 reputation to upvote. I dunno how to that, I'm leaving it for now.
+
+I know I have to import the os module to execute operating system specific commands,
+on the terminal / command-line. But then I forget what the function is called in
+the module os, and I feel dumb, so I switch back to the browser window with the
+StackOverflow answer to check again: it's called 'system'.
+It also uses this cool one-line syntax for if-else, which I used to know but forgot.
+
+os.system('cls' if os.name=='nt' else 'clear')
+
+The 'nt' is because all recent Windows versions are based on Windows NT.
+
+It's not obvious at all that you can do this with if-else
+if you don't already know it.
+This makes me empathize with my students more, especially those learning
+programming for the first time.
+
+Anyway, all this to clear the screen. The rest of the line is for
+error-handling,
+which I'm gonna skip.
+
+Let's move on to printing the title.
+
+	110 LOCATE 10, 27 : PRINT "The Orient Express, 1923"
+
+Aagh, this requires more terminal trickery. I need to center the text on my
+newly centered screen. More googling/ stackoverflowing. But first I save the
+file as "orient.py". Now it's official, we're doing this!
+
+From a query of "python terminal position text" it looks like we can only
+do text positioning in Windows. So I'm not gonna be a perferctionist
+(about this one thing, haha) and move on.
+
+Also, I just enabled the page ruler in sublime so that I don't go past the
+78 column mark. A bunch of earlier lines are too long, and I don't know how
+to re-paragraphy the text. I don't even know what that feature is called.
+I used to know, on emacs, oh well. I was gonna go get my paper journal and
+write down that one of the uses of a teacher is, "What do I call this thing
+which has this or looks like that or lets you do this other thing". Because
+that's something you just know because someone else told you, or you looked
+around or stumbled upon by accident. But in this case, I don't know what that
+feature is called, so I need my own teacher. Sometimes the teacher doesn't
+know. If only there were a recursive call of teachers, where I could call
+my old programming teachers, and they could call theirs, until finally we
+reached some great master Ur-Programmer, probably Richard Stallman, who
+is guaranteed to know all the answers, because they invented it in the first
+place.
+
+Aside: "theme: credentials". How do you know I am who I say I am anyway?
+Why should you listen to me about programming? What have I done that's so
+great anyway? Anyway...
+
+I just printed the title and old copyright message on the terminal, and added
+my own. There is a 27 year difference between my copyright message and
+David Ahl's. Maybe one of my students someday will retype and re-translate
+my translation. Stranger things have happened. I probably could not have
+predicted that I would be teaching programming someday.
+
+120 LOCATE 13, 28 : PRINT "(c) David H. Ahl, 1986" : LOCATE 23, 27
+130 PRINT "Press any key to continue." : RN = -32768!
+140 WHILE LEN(INKEY$) = 0 : RN = RN + 1 : WEND
+150 WHILE RN > 32767 : RN = RN - 65535! : WEND : RANDOMIZE RN : CLS
+
+Whoa, there is some clever stuff going on here.
+First, I need to look up how to wait for input. But in fact, here is our
+first variable RN, and he is using it to seed a random number generator.
+Actually, a pseudo-random number generator (PRNG),
+which is why it needs a seed.
+In every modern language, a linear congruence generator is used seeded off
+the current date and time, but here he is basing it off how long the user
+waits before pressing enter. So there is a direct, but still somewhat
+karmic or mystical connection, between the later game randomness and the
+user's reading speed or reflexes or what have you. I like it, but I'm not
+going to replicate it right now.
+
+I do add "import random" to the top of my program.
+
+PRINT TAB(22) "The Mysterious Arms Deal" : PRINT : GOSUB 1710
+170 '
+180 'Initialization
+190 DIM C$(25), CN(25), CP(25), DA(25), HZ(25), LA$(25), LB$(25), ME(25), N$(25)
+200 DIM TA(25), TD(25), CS(25), MB$(15), MD$(26)
+210 GOSUB 1880 : 'Read data about journey segments
+220 GOSUB 2160 : 'Read statements of travelers
+230 GOSUB 2430 : 'Read names of those on the train
+240 GOSUB 2530 : 'Read menu selections
+250 GOSUB 2760 : 'Shuffle 24 integers for later use
+260 PRINT "Press any key to call a taxi…" : WHILE LEN(INKEY$) = 0 : WEND
+270 
+
+Oo, an episode name, or a chapter name. "The Mysterious Arms Dealer."
+And I remember vaguely that to begin a comment in BASIC you use a single
+quote mark? And everything else on the line is apparently a comment, until
+you type a newline. Man, if I had to teach programming again from scratch,
+I would begin much more simply.
+
+Now I will just duplicate a bunch of global variables with the same names,
+and later when I find out what they are for, I can just search and replace.
+Likewise, I will create functions to do all the initializations, but I
+will give them better names than "GOSUB xxx".
+
+I had to look up how to read in input on StackOverflow:
+
+http://stackoverflow.com/questions/5404068/how-to-read-keyboard-input
+
+Apparently raw_input is the preferred way in Python 2, and I've seen it in
+some of my students programs.
+
+Google: "How to create a list of zeros in Python?"
+Found: http://stackoverflow.com/questions/8528178/list-of-zeros-in-python
+Whoa, this addition/multiplication metaphor applies to lists too!
+
+What does this dollar sign $ notation mean in BASIC? I think it means string?
+Anyway, I don't really need to initialize strings in Python.
+
+I created a new module called 'orient_data.py', which is where I'll store
+the initialization subroutines. First with GOSUB 1880, which I call
+read_journey_segments().
+
+1880 'Subroutine to read meals, conversations, hazards, day, times, location
+1890 FOR I = 1 TO 24 : READ X, ME(I), CN(I), HZ(I), DA(I), TA(I), TD(I), LA$(I), LB$(I)
+1900 NEXT I : RETURN
+1910 DATA 1, 0, 0, 0, 1, 0, 1430, "London", "England"
+...
+
+Oh, I guess I should move the variables into the orient_data module and
+modify them with a global statement as well.
