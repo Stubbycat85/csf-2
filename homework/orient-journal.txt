@@ -161,4 +161,13 @@ read_journey_segments().
 ...
 
 Oh, I guess I should move the variables into the orient_data module and
-modify them with a global statement as well.
+modify them with a global statement as well. And I guess READ statements in
+BASIC read in data from the nearest following DATA segment.
+
+READ X doesn't appear to do anything, except consume a number which he uses
+to keep track of the data rows. I'm going to define a class, since it's clear
+that he wants to group together the different types of data for a journey
+segment in each row.
+
+Wow, Sublime has autocomplete, and some Python IDE features? Why did I not
+notice this before? And it's so much faster and nicer than Eclipse.
