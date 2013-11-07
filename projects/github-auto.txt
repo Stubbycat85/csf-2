@@ -1,0 +1,59 @@
+Project Proposal: Automating GitHub Repository Management with Python
+
+============================================================================
+Case Story / Problem Statement:
+Imagine that you are managing a large number of GitHub repositories, such
+as for an introductory class on programming. You have heard that Python is
+good for automating repetitive tasks, and you don't really want to manually
+create a GitHub repository for every student in the class, check out files
+for grading, and so forth: managing them separately, by hand, doesn't add a
+lot to the teaching or learning experience in giving or receive feedback.
+
+Unfortunately, you've already asked students to create their own public
+repositories. This is mostly okay, but it has the limitation that it forces
+all students to code "in the open", when they may not be ready to share
+their code to the public. Also, you can't give students private feedback
+using the GitHub Issues features. Fortunately, you have a GitHub organization
+created and GitHub has granted you
+125 free private repositories for teaching purposes, something they would
+normally charge for.
+
+What you would like to do instead is write a Python script that takes
+in a list of students' Evergreen logins and their public repo names, and
+do the following:
+
+* create a new private repo named after the student's login
+* add the student as a collaborator, as well as the teaching staff
+* do a bare clone of the student's old, public repo
+* do a mirror push into the student's new, private repo
+
+============================================================================
+Example Input:
+
+A file in the following format (plaintext, separated by whitespaces)
+evergreen_login1 github_login1 repo1
+evergreen_login2 github_login2 repo2
+evergreen_login3 github_login3 repo3
+...
+
+Example Output on the Command-Line: (with text in angle brackets replaced)
+Creating a new repo for <evergreen_login_1> from https://github.com/<github_login1>/<repo1>
+Creating a new repo for <evergreen_login_2> from https://github.com/<github_login2>/<repo1>
+...
+
+============================================================================
+Example Output on website:
+
+On http://github.com/<organization_name>
+there should be one repository per login in the input file, with that
+github username added as an owner (or a team with that github username is
+the owner.)
+
+============================================================================
+Things You Will Need to Learn:
+
+How to use the GitHub API.
+How to use OAUTH, whatever that is.
+How to install and use the GitPython package.
+How to create your own (new) GitHub organization.
+How to do a bare-clone and a mirror-push.
