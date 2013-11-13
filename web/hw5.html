@@ -1,0 +1,879 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0084) -->
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+  
+  <title>Homework 5: Election Prediction</title>
+</head>
+<body>
+
+<h1 id="Homework_5:_Election_Prediction">Homework 5: Election Prediction</h1>
+
+<p>
+<span style="font-size: 120%">Due: Friday, November 8th at 5:00 PM, as many problems as you can complete by working
+6 hours total (reading, looking up on the internet, coding, talking to tutors).
+This approach is known as <a href="http://en.wikipedia.org/wiki/Timeboxing">timeboxing</a>
+and requires you to develop some self-discipline and self-knowledge.
+</span>
+<br>
+Submit your work via GitHub.
+<br>
+Files to turn in: <b><tt>election.py</tt>, <tt>reflection.txt</tt>.</b></p>
+
+<hr>
+
+<img src="./hw5_files/dewey-defeats-truman.jpg" alt="Dewey defeats Truman (not)" style="float:right">
+
+<p>
+In this assignment, you will practice the use of data structures such as lists,
+dictionaries, and sets.
+Don't panic: this assignment has many problems. You are not expected to
+complete them all. Continue working on them up until the due date, and
+submit what you have. Commit problems incrementally, even before they are
+completely finished. See the <a href="#reflection">submission</a> section
+for information about tagging.
+</p>
+
+
+<p>Contents:</p>
+<!-- start toc.  do not edit; run html-update-toc instead -->
+    <ul>
+      <li><a href="#intro-and-background">Introduction and background</a>
+        <ul>
+          <li><a href="#pundits-v-statisticians">Election prediction:  pundits vs. statisticians</a></li>
+          <li><a href="#election-polls-trust">Election polls:  Which ones to trust?</a></li>
+          <li><a href="#electoral-college">The US Electoral College</a></li>
+          <li><a href="#why-polls-are-approximate">Why polls are approximate</a></li>
+        </ul></li>
+      <li><a href="#assignment-overview">Assignment Overview</a>
+        <ul>
+          <li><a href="#problem0">Problem 0: Obtain the files, add your name</a></li>
+          <li><a href="#problem1">Problem 1: State edges</a></li>
+          <li><a href="#testing-your-implementation">Testing your implementation</a></li>
+          <li><a href="#problem2">Problem 2: Find the most recent poll row</a></li>
+          <li><a href="#problem3">Problem 3: Pollster predictions</a></li>
+          <li><a href="#problem4">Problem 4: Pollster errors</a></li>
+          <li><a href="#problem5">Problem 5: Pivot a nested dictionary</a></li>
+          <li><a href="#problem6">Problem 6: Average the edges in a single state</a></li>
+          <li><a href="#problem7">Problem 7: Predict the 2012 election</a></li>
+          <li><a href="#reflection">Reflection and submitting your work</a></li>
+        </ul></li>
+      <li><a href="#data-types">Appendix: Data type reference</a></li>
+    </ul>
+<!-- end toc -->
+
+
+<h2 id="intro-and-background">Introduction and background</h2>
+
+<h3 id="pundits-v-statisticians">Election prediction:  pundits vs. statisticians</h3>
+
+<p>
+In the past, the outcome of political campaigns was predicted by political
+analysts and pundits, using a combination of their experience, intuition, and
+personal biases and preferences.  In recent decades there has been a shift to a 
+more scientific approach, in which election results are predicted
+statistically using a poll. A small random sample of voters is asked how they
+will vote, and from that the result of the entire election is extrapolated.
+</p>
+
+<p>
+The 2012 presidential election was a watershed in the fight between pundits
+and statisticians. The rivalry became front-page news, with many pundits
+loudly proclaiming that the statisticians would be humiliated on November
+6.  In fact, the opposite happened: statistician Nate Silver (of the
+website <a href="http://www.fivethirtyeight.com/">FiveThirtyEight</a>)
+correctly predicted the outcome in every state, whereas pundits' predictions
+varied significantly. Literally dozens of prominent political analysts had
+predicted a Romney win. Other pundits said the election was “too close to call”,
+though Silver and other statisticians had been predicting an Obama win for
+months. These results changed the way many Americans view political commentators,
+revealing them as entertainers but not as reliable sources of information.
+</p>
+
+<p>
+How did Nate Silver do it?  In this assignment, you will find out, and you
+will replicate his results by using polling data to predict the outcome of
+the 2012 US presidential election.
+</p>
+
+<h3 id="election-polls-trust">Election polls:  Which ones to trust?</h3>
+
+<p>
+An <b>election poll</b> is a survey that asks a small sample of voters how
+they plan to vote.  If the sample of voters is representative of the voting
+population at large, then the poll predicts the result of the entire
+election.  In practice, a poll's prediction must be taken with a grain of
+salt, because the sample is only <em>approximately</em> representative of
+the voting population.  (See below for an explanation of why.)
+</p>
+
+<p>
+For example, in late October 2012, the Gallup poll consistently gave Romney
+a 6-percentage-point lead in the popular vote, but in fact Obama won the
+popular vote by 2.6 percentage points.  On the other hand, RAND Corporation
+was biased toward the Democrats and tended to overstate Obama's lead by 1.5
+percentage points.  How can you decide which polls to rely upon?  Depending
+on which poll you trust, you might make a very different prediction.
+</p>
+
+<p>
+One approach is to average together the different polls.  This is better
+than trusting any one of them, but it is still rather crude.  What if most
+of them are biased?  That was the case for the 23 organizations that
+conducted at least 5 polls in the last 21 days of the 2012 Presidential
+campaign:  19 of the 23 organizations gave a result that favored
+Republicans more than the actual results did.  Nonetheless, Nate Silver's
+prediction was very close to correct, and showed no bias toward either party.
+</p>
+
+<p>
+Silver's approach is very sophisticated, but its key idea is to combine
+different polls using a <em>weighted average</em>.  In a normal average,
+each data point contributes equally to the result.  In a weighted average,
+some data points contribute more than others.  Silver examined how well
+each polling organization had predicted previous elections, and then weighted
+their polls according to their accuracy:  more biased pollsters had less
+effect on the weighted average.
+</p>
+
+<p>The general structure of FiveThirtyEight's algorithm is:</p>
+<ol>
+<li>Calculate the average error of each pollster's predictions for previous 
+elections. This is known as the pollster's <b>rank</b>. A smaller rank
+indicates a more accurate pollster.</li>
+<li>
+Transform each <b>rank</b> into a <b>weight</b> (for use in a 
+<a href="http://en.wikipedia.org/wiki/Weighted_mean">weighted average</a>).
+A larger weight indicates a more accurate pollster. FiveThirtyEight 
+considers a number of factors when computing a weight, including rank, sample 
+size, and when a poll was conducted. For this assignment, we simply set
+<b>weight</b> to equal the inverse square of <b>rank</b>
+(<tt>weight = rank**(-2)</tt>).<br>
+</li>
+<li>In each state, perform a weighted average of predictions made by pollsters.
+This predicts the winner in that state.
+</li>
+<li>Calculate the outcome of the Electoral
+  College, using the per-state predictions.
+  The candidate with the most electoral votes wins the election.
+</li>
+</ol>
+
+<p>
+The algorithm is described in more detail at the 
+<a href="http://fivethirtyeight.blogs.nytimes.com/methodology/">FiveThirtyEight blog</a>.
+You do not have to read or understand this information to complete this assignment, but
+you may find it interesting nonetheless.
+</p>
+
+
+<h3 id="electoral-college">The US Electoral College</h3>
+
+<p>
+We have given you an implementation of the <tt>electoral_college_outcome</tt> function, so
+this section is for your information but you do not need it while writing
+code for your assignment.
+</p>
+
+<p>Here is information about US Presidential elections and the
+<a href="http://en.wikipedia.org/wiki/Electoral_College_(United_States)">US
+Electoral College</a>, paraphrased from Wikipedia:</p>
+
+<p style="margin-left: 2em;">The President of the
+United States is not elected directly by the voters. Instead, the President
+is elected indirectly by “electors” who are selected by popular vote on a
+state-by-state basis.  Each state has as many electors as members of
+Congress. There are 538 electors, based on Congress having 435
+representatives and 100 senators, plus three electors from the District of
+Columbia.</p>
+
+<p style="margin-left: 2em;">Electors are selected on a
+“winner-take-all” basis. That is, all electoral votes go to the
+presidential candidate who wins the most votes in the state.
+(Actually, Maine and Nebraska use a slightly different method, but for
+simplicity in this assignment, we will assume they use the
+“winner-take-all” approach.)
+</p>
+
+<p>
+Our analysis only considers the Democratic and Republican political
+parties.  This is a reasonable simplification, since a third-party
+candidate has received an electoral vote only once in the past 60 years (in
+1968, George Wallace won 8% of the electoral vote).
+</p>
+
+
+<h3 id="why-polls-are-approximate">Why polls are approximate</h3>
+
+<p>
+This section of the handout explains why poll results are only approximate,
+and how poll aggregation helps.
+</p>
+
+<p>
+Recall that a poll sample is only <em>approximately</em> representative of
+the voting population.  There are two reasons for this:  sampling error and
+pollster bias.
+</p>
+
+<ol>
+  <li>
+    <b>Sampling error:</b>
+    If you randomly choose a sample from a population, then random chance
+    may cause the sample to differ from the population.  The US population
+    is 50.7% female and 49.3% male, 
+    <!-- In 2009, 155.6 million females (50.7%),  151.4 million males (49.3%). -->
+    but a random sample of 1000 individuals
+    might include 514 females and 486 males or 496 females and 504 males.
+    An extrapolation from the sample to the entire population would be
+    slightly incorrect.  The larger the sample, the more likely it is to be
+    representative of the population.
+
+    <p>
+    Sampling error is unavoidable, but it can be reduced by increasing the
+    sample size.  This is one reason that poll aggregation can be successful:
+    it effectively uses a larger sample than any one individual poll.
+    </p>
+  </li>
+  <li>
+    <b>Pollster bias or “house effects”:</b>
+    These are systematic inaccuracies caused by faulty methodology —
+    essentially, the pollster has <em>not</em> chosen a random sample of US
+    voters.  Suppose that a pollster sampled only Mormons or only
+    African-Americans; it would be meaningless to predict the overall
+    vote from these biased samples.
+    Actual pollster bias comes in subtler forms, and can be a
+    positive or a negative factor.  
+    Here are some examples:
+    <ul>
+      <li>
+        Not all Americans vote, so each polling firm should adjust its
+        sampling to select not among all Americans, but among likely
+        voters.  Poor people and young people are are less likely to vote,
+        so a polling firm might adjust its statistics to account for that,
+        but the firm might over- or undercompensate.
+      </li>
+      <li>
+        Survey response rates are typically lowest in urban areas, so
+        unweighted samples routinely under-represent black and Hispanic
+        Americans who frequently live in urban areas.
+      </li>
+      <li>
+        Some telephone polls call only landline numbers, but 1/3 of
+        Americans rely on cellphones — and they are younger, more urban,
+        poorer, and more likely to be black and Hispanic, all of which
+        correlate with Democratic voting.
+      </li>
+      <li>
+        Question wording and order has a significant effect on responses.
+      </li>
+    </ul>
+    Pollster bias is avoidable by improving methodology —
+    or, if you can determine a pollster's bias, you can adjust their scores
+    accordingly and use the adjusted scores rather than what the pollster
+    reports.  That is what Nate Silver and other “poll aggregators” did
+    — even without knowing the specific sources of bias.
+  </li>
+</ol>
+<hr>
+
+
+
+<h2 id="assignment-overview">Assignment Overview</h2>
+
+<p>In this assignment, you will write a Python program that predicts the outcome
+of the 2012 US Presidential election, based on polling data and results
+from the 2012 and 2008 elections.  The
+overall program has already been designed, including deciding the names and specifications of all the
+functions and implementing some of the functions.  Your job is to implement
+the rest of the functions. You will verify your implementation using
+testing code that we provide.  Along the way, you will learn about Python
+collections.
+</p>
+
+<p>
+<b>Don't panic!</b>  This assignment might look long, but we have already
+done most of the work for you.  You only have to implement 10 functions
+— and we have already written the documentation and
+tests for those functions, so you know exactly what to do and you know
+whether your solution is correct.  The staff implementation of those 10
+function bodies consists of only 63 lines of code in total, and 8 of the 10
+functions have a body consisting of 6 or fewer lines of code.
+<!--
+ (defvar sizes '(6 6 4 11 5 6 9 4 6 6))
+ (length sizes)
+ (apply 'average sizes)
+ (apply '+ sizes)
+-->
+Your solution might be smaller or larger, and that is fine; we mention the
+size only to give you a feel for the approximate amount of code you have
+to write.  While solving this assignment, you should expect to spend more
+time <em>thinking</em> than <em>programming</em>.
+</p>
+
+<p>
+Hint: Before you implement any function, try describing the algorithm in English
+and hand-simulating it on some sample data.  If you need help, ask us!  You can
+use the <a href="https://moodle.evergreen.edu/mod/forum/view.php?id=88350">Moodle forum</a>,
+the <a href="ada.evergreen.edu/csf/python13f">chat channel</a>, or e-mail the
+professor or the TA, e-mail addresses also on the <a href="ada.evergreen.edu/csf/python13f">course website</a>.
+</p>
+
+
+<h3 id="problem0">Problem 0: Obtain the files, add your name</h3>
+
+<p>
+Obtain the files you need:   Downloading the
+<a href="../homework/homework5.zip">homework5.zip</a> file, then unzip it to create a
+<tt>homework5</tt> directory/folder on your computer.
+</p>
+
+<p>
+You will do your work by modifying two files — <tt>election.py</tt> and
+<tt>reflection.txt</tt> — and then submitting the modified versions.
+<b>Add your name and Evergreen login to the top of each file.</b>
+</p>
+
+<p>
+We provide you with the following election data (in the directory
+<tt>homework5/data</tt>):
+</p>
+
+<ul>
+<li><tt>data/2008-polls.csv</tt>: Polling data from the 2008 US presidential election.</li>
+<li><tt>data/2008-results.csv</tt>: Results from the 2008 election.</li>
+<li><tt>data/2012-polls.csv</tt>: Polling data from the 2012 election.</li>
+<li><tt>data/2012-results.csv</tt>: Results from the 2012 election. <br>
+<i>These results should not be used to predict the 2012 election. They are
+included to evaluate the accuracy of your predictions.</i></li>
+<li><tt>data/2012-electoral-college.csv</tt>: Name, population, and electoral
+votes of each state in 2012.</li>
+</ul>
+
+<p>
+You do not have to open or examine any of these files.  The staff has
+already provided you with all the code that reads files.  (It's the 
+<tt>read_csv</tt> function at the top of <tt>election.py</tt>; 
+it uses a <tt>DictReader</tt> from Python's <tt>csv</tt> library.)  You will
+only write functions that manipulate data structures such as lists and
+dictionaries.
+</p>
+
+<p>
+We describe the files here for completeness, but you can skip the rest of
+this section if you are not interested.
+</p>
+
+<p>
+Each file represents a table, in
+<a href="http://en.wikipedia.org/wiki/Comma-separated_values">CSV</a> 
+format: rows are on separate lines, and columns are separated by commas. The first
+row in each file contains the name of each column.
+You can open a CSV file using or using a 
+spreadsheet programs such as Microsoft
+Excel (though a spreadsheet program display the file differently than its
+actual contents!).
+<b>Be careful not to make any changes when examining these files.</b>
+(Microsoft Excel or another program might encourage you to save the files
+in a different format; do not do so!)
+</p>
+
+<p>Each row in the provided <b>polling data</b> (<tt>2008-polls.csv</tt> and
+<tt>2012-polls.csv</tt>) contains a prediction of the Democratic and Republican
+popular vote percentages in a single state.  Each row also contains the name of the
+pollster that conducted the poll and the date the poll was conducted.</p>
+
+<p>Each row in the provided <b>election data</b> (<tt>2008-results.csv</tt> and
+<tt>2012-results.csv</tt>) contains the actual Democratic and Republican popular
+vote percentages.</p>
+
+
+<h3 id="problem1">Problem 1: State edges</h3>
+
+<p>
+Let's begin with a simple task: transforming a list of election result
+rows into a more elegant Python data structure: a dictionary.
+</p>
+
+<p>Your program will represent the result of a state election in terms
+of the “Democratic edge”, or the difference between the Democratic and Republican
+popular vote percentages in that state.
+For example, if the Democratic candidate receives 53% of the vote (actual
+or predicted), and the Republican candidate receives 47% of the vote, then
+the Democratic edge is 6 (percentage points).
+A positive edge indicates a Democratic lead,
+and a negative edge indicates a Republican lead. The sign associated with each party is
+<!-- Actually, the sign is not arbitrary, but is consistent with that used by
+  combinatorial game theory.  But the students don't need to know that. -->
+arbitrary — no positive or negative connotation is intended.</p>
+
+<p>
+Throughout our program, we will frequently need to look up the Democratic
+edge (hereinafter referred to simply as “edge”) in a particular
+state. Instead of tediously searching through a list of election data rows
+to find a particular state, let us instead produce a dictionary that maps
+each state to its edge. The <tt>state_edges</tt> function serves this
+purpose.  Read its documentation in the <tt>election.py</tt> file.
+</p>
+
+<p>The docstring for <tt>state_edges</tt> (the triple-quoted text just below
+the function declaration) is a concise summary of its input parameters and return
+value, and how they relate to each other. This is known as a function's 
+<b>specification</b>. On first inspection, the specification of <tt>state_edges</tt>
+appears too concise: What exactly do we mean by “state edges”?</p>
+
+<p>To avoid confusion about the various data structures used in this assignment,
+we've given each structure a name, and precisely defined its purpose and
+representation in Python. <b>A list of these structures can be found at the
+<a href="#data-types">bottom of this document</a>.</b> There you will find a
+definition of <a href="#state-edges">“state edges”</a>.
+If you become confused about the parameters or return type of a function,
+<b>read its specification, and look up any unfamiliar types in the list below.</b>
+Another way to better understand a given function is to examine its tests
+that appear in the file <tt>tests.py</tt>.  Those tests don't use exactly
+the same data as when your program will predict the 2012 election, but they
+do use data of exactly the same type, and you may find the tests' small examples
+of input and output helpful in understanding a given function.
+</p>
+
+
+<p>
+<b>In
+<tt>election.py</tt>, implement the function <tt>state_edges</tt>.</b>
+Remove these lines:
+</p>
+<pre>    #TODO: Implement this function
+    pass
+</pre>
+<p>
+and replace them by your implementation.
+Be sure to take advantage of the provided <tt>row_to_edge</tt> function.</p>
+
+<p>
+You do not have to read or examine the <tt>.csv</tt> files for this or any
+other problem in the assignment.
+</p>
+
+
+<h3 id="testing-your-implementation">Testing your implementation</h3>
+
+<p>
+<b>Uncomment the invocation of <tt>test_state_edges()</tt></b> near the end of
+  file <tt>tests.py</tt>.  That is, change this line:
+</p>
+<pre>    #test_state_edges()
+</pre>
+<p>
+to this:
+</p>
+<pre>    test_state_edges()
+</pre>
+
+<p>
+Then, <b>run <tt>tests.py</tt></b> as a Python program.  You can do this by
+opening <tt>tests.py</tt> in IDLE, then pressing F5 or selecting Run Module
+from the Run menu.  (Alternately, you can type <tt>python tests.py</tt> at
+the command line, but using IDLE is usually more convenient.)
+</p>
+
+<p>
+The file <tt>tests.py</tt> contains Python code that verifies the
+correctness of each function you write.  Every time you finish implementing
+a function, you should uncomment the corresponding function call at the
+bottom of <tt>tests.py</tt> and run <tt>tests.py</tt>.
+</p>
+
+<p>
+If your implementation is correct, then running <tt>tests.py</tt> will
+print “Tests passed.&amp;rdquo  If your implementation is incorrect, 
+an error will be output; in this case, fix your implementation and re-run
+<tt>tests.py</tt>, until your implementation passes the tests.
+</p>
+
+<p>
+The error produced if your implementation has a bug will not be very
+helpful.  For example, suppose that you press F5 (Run Module) in IDLE and
+get an error such as
+</p>
+<pre>...
+  File "tests.py", line 32, in test_state_edges
+    assert state_edges(rows1) == {'WA': 0.9}
+AssertionError
+</pre>
+<p>
+This tells you that the value returned by the method call
+<tt>state_edges(rows1)</tt> was <em>not</em> <tt>{'WA': 0.9}</tt> as it
+should have been, but it does not tell you what the value was.
+But, IDLE is now in the interpreter waiting for output, with all of your
+program's functions defined.  You can type
+</p>
+<pre>state_edges( [{'State': 'WA', 'Dem': '1.0', 'Rep': '0.1'}] )
+</pre>
+<p>
+to the Python interpreter to see the exact value that the call returned.
+Using the Python interpreter in this way is very convenient:  you can
+perform experiments, calling a function on whatever input you like to
+better understand its behavior.
+</p>
+
+
+<h3 id="problem2">Problem 2: Find the most recent poll row</h3>
+
+<p>Next, we turn our attention to polling data. Election sentiment ebbs and flows
+in the months leading up to an election, and as a result older polls are much
+less accurate than more recent polls. In order to prevent old poll data
+from unduly influencing our prediction of the 2012 election, our program will only
+consider the most recent poll from a pollster in a state.</p>
+
+<p><b>Implement the function <tt>most_recent_poll_row</tt> for this purpose.</b>
+We provide a function <tt>earlier_date</tt>, which compares dates formatted as strings.
+Make use of this function when implementing <tt>most_recent_poll_row</tt>. If you're
+stuck, think back to how we found the maximum element in a list. In a sense,
+<tt>most_recent_poll_row</tt> is finding the “maximum” of a list of 
+dates.  As with any function, if you are having any trouble, step away from
+IDLE, write a set of English instructions, and manually animate your
+algorithm on some sample data.
+</p>
+
+<p>
+Don't forget to uncomment the call of <tt>test_most_recent_poll_row</tt> at
+the bottom of <tt>tests.py</tt>, and run the tests.
+</p>
+
+
+<h3 id="problem3">Problem 3: Pollster predictions</h3>
+
+<p>Now that we can obtain the most recent poll by a particular pollster in a
+particular state, we can consider how to represent polling data within Python.</p>
+
+<p>An election poll has two pieces of identifying information (“keys”):
+a state and a pollster. Thus, our Python representation should make it easy to
+look up a poll given both keys. <b>Nesting a dictionary within another dictionary
+is a common way to facilitate lookup with multiple keys</b>. For example, here is a 
+nested dictionary representation, which we call a
+<a href="#pollster-predictions">pollster prediction</a>:</p>
+
+<pre>{ 
+  "pollster1": {"WA": 10.0, "OR": 15.0},
+  "pollster2": {"OR": -5.0, "TX": -15.0}
+}               
+</pre>
+
+<p>A value can be looked up in a nested dictionary using two pairs of brackets:</p>
+
+<pre>edge = pollster_prediction["pollster1"]["WA"]
+</pre>
+
+<p>
+In the above, note that <tt>pollster_prediction["pollster1"]</tt> is a dictionary
+that maps each state to an edge.
+</p>
+
+
+<p>Alternatively, we could reverse the keys, and nest a dictionary of pollster
+edges inside a dictionary of states; we call this a <a href="#state-predictions">state prediction</a>:</p>
+
+<pre>{
+  "WA": {"pollster1": 10.0}
+  "OR": {"pollster1": 15.0, "pollster2": -5.0}
+  "TX": {"pollster2": -15.0}
+}
+
+edge = state_prediction["WA"]["pollster1"]          
+</pre>
+
+<p>
+In the above, note that <tt>state_prediction["WA"]</tt> is a dictionary
+that maps each pollster to an edge.
+</p>
+
+<p>
+<b>Each representation is better suited for different types of lookup.</b>
+If you have a pollster, and you want to obtain all the state predictions
+associated with that pollster, the first data structure is most
+convenient. Conversely, if you have a state, and you want to obtain all the
+pollster predictions in that state, the second data structure is more
+convenient.
+Your program will use both types of nesting. 
+</p>
+
+<p>
+First, <b>implement the helper function <tt>unique_column_values</tt>.</b>
+This produces a collection of states and a collection of pollsters to
+iterate over.  You will need this in order to use the
+<tt>most_recent_poll_row</tt> function that you previously implemented in
+<a href="#problem2">Problem 2</a>.  As a hint, consider how different
+Python data structures handle duplicate elements.
+</p>
+
+<p>
+Next, <b>implement the
+<tt>pollster_predictions</tt> function.</b>
+Its output produces the first example of nesting described in this problem.
+(In <a href="#problem5">Problem 5</a>, you will implement a function that
+transforms one nesting into another.)  Your implementation of
+<tt>pollster_predictions</tt> will use the helper function
+<tt>most_recent_poll_row</tt> that you just implemented.
+</p>
+
+<p>
+Don't forget to refer to the <a href="#data-types">data type reference</a>
+if you are unsure about what data structure to return, and don't forget to
+uncomment and run the tests.
+</p>
+
+
+<h3 id="problem4">Problem 4: Pollster errors</h3>
+
+<p>Now that we can represent election results and polling data in Python, we can
+begin to implement Nate Silver's algorithm. A first step is to write a function
+that computes the rank (average error) of a pollster's predictions.</p>
+
+<p><b>Implement the function <tt>average_error</tt></b>, which computes the average
+error of pollster edges. In each state, the error of a predicted edge is the <em>absolute
+value</em> of the difference between the predicted edge and actual edge. The average error
+of a collection of pollster edges is the average of these individual errors.</p>
+
+<p>Hint:  <b>Not all pollsters conduct polls in every state.</b> When computing an average
+error,  be sure to divide by the number of states in which a pollster made a prediction,
+not by the total number of states.</p>
+
+<p>Next, <b>use <tt>average_error</tt> to implement the function <tt>pollster_errors</tt>.
+</b>Again, refer to the data type reference below for more information about parameter
+and return types. Once completed, <tt>pollster_errors</tt> provides a quantitative method
+for measuring the accuracy of a pollster, based on their past predictions.</p>
+
+<h3 id="problem5">Problem 5: Pivot a nested dictionary</h3>
+
+<p>Recall that in Problem 3, we implemented a function that produces a <a href="#pollster-predictions">pollster
+prediction</a> (a nested dictionary from pollster to state to edge). This nesting
+was ideal when implementing <tt>pollster_errors</tt>, however future problems will
+require the opposite nesting. <b>Implement and test the function <tt>pivot_nested_dict</tt>,
+which converts pollster predictions to state predictions.</b></p>
+
+<p>
+Hint:  the <tt>in</tt> operator indicates whether a dictionary
+contains a key.
+</p>
+
+<h3 id="problem6">Problem 6: Average the edges in a single state</h3>
+
+<p>So far, we have focused on representing election and polling data in Python,
+and analyzing the accuracy of predictions from past elections. Now, we look to the
+future!</p>
+
+<p>
+When predicting the election result in a single state, predictions from
+multiple pollsters are combined using a weighted average, where a
+pollster's prediction is weighted according to the accuracy of its past
+predictions. First, <b>implement and test the helper function
+<tt>weighted_average</tt>.</b>
+A weighted average is defined as follows
+(images of formulas courtesy of <a href="http://en.wikipedia.org/wiki/Weighted_mean">Wikipedia</a>):</p>
+
+<p>For a list of items x:</p>
+<img src="./hw5_files/weighted_avg_1.png" alt="list of items x">
+
+<p>and a corresponding list of weights w:</p>
+<img src="./hw5_files/weighted_avg_2.png" alt="list of weights w">
+
+<p>the weighted average of x is:</p>
+<img src="./hw5_files/weighted_avg_3.png" alt="definition of weighted average">
+
+<p>
+After implementing and testing <tt>weighted_average</tt>, use it to
+<b>implement <tt>average_edge</tt>.</b>
+We provide the function <tt>pollster_to_weight</tt>, which you should use to compute
+the weight of a pollster, based on their average error.</p>
+
+
+<!--
+<p>
+There are some imperfections in the 2012 polling data.  These do not affect
+the code you write (we have already taken care of the details), but we
+mention them here for completeness.
+</p>
+<ul>
+  <li>Some pollsters in the 2012 election are absent from the 2008 polling data, and thus
+  are not assigned a weight by <tt>pollster_weights</tt>. In these cases, we assume the pollster
+  has an average error of 5%. The provided function <tt>pollster_to_weight</tt>
+  handles this detail for you, so you do not need to worry about this.</li>
+  <li>Polling data from the 2012 election is not available for Alaska, Delaware,
+  and Wyoming, most likely because the electoral outcome in these states was easily
+  predictable using other sources of data. To address this shortcoming, we
+  have added a pollster &ldquo;2008Election&rdquo; to <tt>2012-polls.csv</tt>, which predicts
+  that the popular vote percentages in these three states will be identical to the
+  2008 election.</li>
+</ul>
+-->
+
+
+<h3 id="problem7">Problem 7: Predict the 2012 election</h3>
+
+<p>Finally, <b>implement the function <tt>predict_state_edges</tt>,</b> which
+predicts the result of the 2012 election in each state. Make use of the
+<tt>average_edge</tt> function from Problem 6.</p>
+
+<p>
+Once your implementation <tt>predict_state_edges</tt> passes our tests,
+<b>run <tt>election.py</tt> as a Python program to predict the outcome of the
+2012 election!</b>  
+Your result should match the actual outcome of the 2012 election:
+</p>
+<pre>Dem 332.0
+Rep 206.0
+</pre>
+
+<p>
+If your program passes all the tests, but does not give this answer, then
+please send your program to the course staff, who will create an additional
+test case to help you find your error.
+</p>
+
+<p>
+More details about the actual election appear in file 
+<tt>data/2012-results.csv</tt> and in the 
+<a href="http://en.wikipedia.org/wiki/United_States_presidential_election,_2012">Wikipedia
+  article on the 2012 election</a>.
+</p>
+
+
+<h3 id="reflection">Reflection and submitting your work</h3>
+
+<p>Make sure to look over <tt>election.py</tt> and <tt>tests.py</tt> for
+any remaining <tt>TODO</tt> comments (the find feature in IDLE works great).
+This should help you ensure you have completed the entire assignment.</p>
+
+<p>In <tt>reflection.txt</tt>, state which students or other people
+(besides the course staff) helped you with the assignment, or that no one did.</p>
+
+<p>In <tt>reflection.txt</tt>, 
+reflect on this assignment.
+  What did you learn from this assignment?  What do you wish you had known
+  before you started?  What would you do differently?  What advice would
+  you offer to future students?
+</p>
+
+<p>Submit your files in your Github repository.
+Please commit your work incrementally, even if you haven't finished a problem.
+This will keep a backup of your work online and let us keep track of your
+progress. When you are finished with each problem and it passes the necessary tests,
+commit/sync it first to
+github.com, and tag it (create a release) called <code>hw5-x</code> for
+problem <code>x</code>.
+</p>
+
+<hr>
+<h2 id="data-types">Appendix: Data type reference</h2>
+
+<p id="state"><b>State</b>: Represented as a string, consisting of a two-letter
+abbreviation.
+<br>
+Examples:  "WA", "TX"</p>
+
+<p id="edge"><b>Edge</b>: The Democratic edge (difference between Democratic and
+Republican vote percentages) in an individual state election. Represented as a
+number.
+<br>
+Examples: 3, -5.4, 0.0
+</p>
+
+<p id="pollster"><b>Pollster</b>: An organization that conducts election polls. 
+Represented as a string (the pollster's name).
+<br>
+Examples: "AtlantaJournal", "SurveyUSA"
+</p>
+
+<p id="state-edges"><b>State edges</b>: A dictionary that maps a <b>state</b> to
+ an <b>edge</b>. Represents the nation-wide result of an election or a poll as a collection
+  of edges, each corresponding to a particular state.
+When it represents a poll, if a state is missing, that indicates that the
+  pollster did not make a prediction in that state.
+<br>
+Example: { "AK": -14.0, "AL": -22.3, "AR": -23.6, "AZ": -10.1, "CA": 20.9 }
+</p>
+
+<p id="pollster-edges"><b>Pollster edges</b>: A dictionary that maps a
+<b>pollster</b> to an <b>edge</b>. Represents a collection of predictions about
+the result of an individual state election (an edge).
+<br>
+Example: { "MarketShares": 21, "SouthernIllinoisU": 13, "IPSOS": 26 }
+</p>
+
+<p id="pollster-predictions"><b>Pollster predictions</b>: A dictionary that maps
+a <b>pollster</b> to a <b>state edges</b>. Represents a collection of pollsters,
+each of which has a collection of per-state election predictions (a <a href="#state-edges">state edges</a>).
+<br>
+Example:<br>
+{ "Gallup": { "WA": 7, "CA": 15, "UT": -30 },<br>
+&nbsp; "SurveyUSA": { "CA": 14, "CO": 2, "CT": 13, "FL": 0, "GA": -8, "KY": -14 },<br>
+&nbsp; "Omniscient": { "AK": -14.0, "AL": -22.3, "AR": -23.6, "AZ": -10.1, "CA": 20.9 }<br>
+}
+</p>
+
+<p id="state-predictions"><b>State predictions</b>: A dictionary that maps a
+<b>state</b> to a <b>pollster edges</b>. Represents a collection of states, each
+of which has a collection of predictions made about that state (a <a href="#pollster-edges">pollster edges</a>).
+<br>
+Example: <br>
+{ "IL": { "MarketShares": 21, "SouthernIllinoisU": 13, "IPSOS": 26 }, <br>
+&nbsp; "IN": { "Rasmussen": -9, "Howey": -10, "PharosResearchGroup": -13, "GlobalStrategy": -6 } <br>
+&nbsp; "LA": { "Zogby": -13, "SouthernMediaOpinionResearch": -6 } <br>
+}
+</p>
+
+<p><i>Note that both <b>pollster predictions</b> and <b>state predictions</b> are
+nested dictionaries. In problem 5, we implement a function that can convert
+between these two types.</i>
+</p>
+
+<p><b>Pollster errors</b>:  A dictionary that maps a pollster to an average
+  error (a float).
+<br>
+Example: { "Gallup" : 6.9, "SurveyUSA" : 3, "RockyMtnPoll" : 0 }
+</p>
+
+<p id="data-rows"><b>Election data row / poll data row</b>: A dictionary that
+maps a column name to a value (as a string).
+</p>
+
+<p>
+An <b>election data row</b> has the following columns: State, Dem, Rep
+<br>
+Examples:<br>
+{ "State":"AK", "Dem":"41.3", "Rep":"55.3" }<br>
+{ "State":"AL", "Dem":"38.4", "Rep":"60.7" }<br>
+{ "State":"AR", "Dem":"36.9", "Rep":"60.5" }
+</p>
+
+<p>
+A <b>poll data row</b> has the following columns: State, Dem, Rep, Date, Pollster
+<br>
+Examples: <br>
+{ "State": "AK", "Dem":"37", "Rep":"59", "Date":"Nov 04 2008", "Pollster":"2008Election" } <br>
+{ "State": "AL", "Dem":"36", "Rep":"54", "Date":"Aug 16 2012", "Pollster":"CapitalSurvey" } <br>
+{ "State": "AL", "Dem":"36", "Rep":"51", "Date":"Jun 27 2012", "Pollster":"CapitalSurvey" }
+</p>
+
+<h2>Change History</h2>
+
+<ul>
+<li><b>[10/30]</b> Initial version.</li>
+</ul>
+
+<!--  LocalWords:  turnin py txt CSV FiveThirtyEight pundits' landline csv
+ -->
+<!--  LocalWords:  FiveThirtyEight's undercompensate aggregators homework3
+ -->
+<!--  LocalWords:  NetID DictReader docstring pollster1 pollster2 dict ec
+ -->
+<!--  LocalWords:  AtlantaJournal SurveyUSA MarketShares SouthernIllinoisU
+ -->
+<!--  LocalWords:  IPSOS PharosResearchGroup GlobalStrategy Zogby TODO F5
+ -->
+<!--  LocalWords:  SouthernMediaOpinionResearch RockyMtnPoll 2008Election
+ -->
+<!--  LocalWords:  CapitalSurvey 2008Election 2008Election 'WA' 'State' '1
+ -->
+<!--  LocalWords:  AssertionError 'Dem' 0' 'Rep' '0 1' 2008Election HW3
+ -->
+</body></html>
