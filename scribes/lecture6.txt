@@ -1,0 +1,47 @@
+Joshua Kendall, Stephen Rancourt
+
+Programming Notes: Nov 5, 2013
+
+*Now requiring attendance for programming lecture!
+*Office Hours: Wednesday 3-4 in Lib2611
+
+Data structures in Python:
+-lists, sets, tuples, dictionaries.
+
+Office hours: Wednesday LIB 2611 3-4pm
+Lab Hours: Thursday 10-11am, 1-2pm, 3-4pm
+
+Python Anywhere:
+-Can access a command line from anywhere.
+
+"This isn't a community college, so we aren't always going to have a clear direction;
+we need to be okay with experimenting."
+
+Scope: What is the scope of a variable?
+-The section of the code that can access the variable.
+=Scope can be thought of as like the different levels of indentations in code.
+
+Kinds of scope: (dreams inside of dreams)
+-Module <--> first level of indentation, file ending in .py, can be imported
+-Functions: "def square(x):", this is a new scope (dream), creates new indent, returns a value
+=Indentations are important in Python! Either 4 spaces or a tab for each indent.
+=Programs are read line-by-line, so ordering matters as well. You cannot call a variable until
+it has been defined in that scope. Scopes inside scopes inherit values and variables from parent scope.
+-While, for loops create a new scope
+-if, else statements create new scopes, "if(x>0):"
+
+Why Scopes?:
+-Reuse variable names
+-organize program
+-limit accidental modification
+
+Programming exercise:
+Sort a shuffled list of 100 elements or guess a random number.
+
+Data Structures:
+-lists: daily_tasks["wake up", "eat", "brush teeth", "bike", "teach", ....]
+=have certain operations that can be performed on them.
+*len(daily_tasks) = gives cardinality of the list.
+*daily_tasks[i] = provides a specific element in a list.
+*daily_tasks.append("dream") = adds an element to a list.  
+*del - removes item in a list

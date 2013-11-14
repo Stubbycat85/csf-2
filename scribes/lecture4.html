@@ -1,0 +1,95 @@
+<html>
+
+		<head>
+		<title>Python Notes Week 4</title>
+		<meta charset="UTF-8">
+		<style>
+				p {
+					text-indent:2.0em;
+				}
+		</style>
+		</head>
+
+		<body>
+				<h1>Python Lecture Notes, Week 4</h1>
+				<h2>October 22, 2013</h2>
+
+				<p1>Office Hours: Wedensdays 3-4 PM
+				<br>Office Chat Room: <strong>ada.evergreen.edu/csf/python13f</strong></p1>
+
+				<h2> - Announcements - </h2>
+				<p1> ** Python Homework #3 is due Friday, October 25th **<br> 
+				      * No group hug due to flu<br>
+				      * There will be <strong>four</strong> more writing sessions during the Problem Solving Workshops on Mondays</p1>
+
+				<p2> <br>Treat deadlines for homework as guidelines. It's OK to be a little late and have it still turned in. Don't stress over falling a little behind.</p2>
+				<p1> <br>Remember to use your teachers as resources!<br><br><strong>How to use your Teacher:</strong></p1>
+				<ul>
+						<li>Teacher as a common foe</li>
+						<li>Teacher as a cheerleader</li>
+						<li>Teacher as a guinea pig / test subject</li>
+								<ul>
+										<li>Ask them to solve a problem similar to the one you are working on.<br>Make them prove that they know the material too!</li>
+								</ul>
+				</ul>
+
+				<h2> - Python - </h2>
+				<p1> There are roughly 30 keywords in Python 2.7 
+				<br> <br><strong>Common Mistake:</strong><br> When importing a module into your code, remember not to include the file extension.<br><br> </p1>
+				<p1> import module.py    # Incorrect <br>
+				     import module       # Correct   </p1>
+
+				<h3>Hall of fame:<br></h3>
+				<p1>The hall of fame is for when the teacher learns from a student. There are many different ways of solving problems.<br><br>
+				Example:<br>
+				A clever way to print a string n times:<br><br>
+				Rather than...<br>
+				</p1>
+				<p1>for i in range(n):<p> print "Hello World"</p><br>
+				We can instead print a string multiplied n times.<br>
+				print "Hello World\n" * n
+
+				</p1>
+
+				<h2> Online Python Tutor:</h2>
+				<p><strong>pythontutor.com</strong></p>
+				<p1>This site allows you to test Python code line by line as it executes. Helpful graphs and tables appear to help show what's going on at each step.</p1>
+				<h2>Variables:</h2>
+				<p><strong>It's important to remember that variables can be re-assigned, and change over time</strong></p>
+				<p1>A list:<br><br>a = [2,3,1]<br>temp = a[0]<br>a[0] = a[1]<br>a[1] = temp</p1>
+				<p> We can change, and re-assign values in a list according to their indices</p>
+
+				<h2>Functions:</h2>
+				<p><strong>def</strong> is the keyword you use to define a new function</p>
+				<p1>def swap(x,y):</p1>
+				<p># insert code here</p>
+				<p1>We construct a function by calling the <strong>def </strong> keyword, and then giving the function a name.<br>
+				A function can be named anything that a variable can (no special characters, no keywords, or already defined functions.)</p1>
+				<p>After the name of the function, inside a set of parenthesis, is the list of arguments (which can be any number of arguments, even 0)</p>
+				<p1> def swap(x,y): #This takes in two arguments</p1>
+				<p> temp = a[x]<br>
+				a[x] = a[y]<br>
+				a[y] = temp </p>
+
+				<p1> We can then use the function by calling its name, and passing in those arguments></p1>
+				<p>swap(1,2)</p>
+				<p1> Will pass 1 and 2 in the place of the x and y, respectively<br><br>
+				temp = a[1]<br>
+				a[1] = a[2]<br>
+				a[2] = temp</p1>
+
+			<h2>Google Flu Trends:</h2>
+			<p1> <strong> gis.cdc.gov/fluview/fluportaldashboard.html </strong></p1>
+			<p>Because of the government shutdown, collection of data regarding flu reports was halted temporarily.<br>
+			Luckily, Google tracks the flu, too!</p>
+
+			<p1><strong> google.org/flutrends/us/#US </strong></p1>
+			<p>Google keeps track of how many search queries are made with terms like "flu symptoms."<br>
+			They can then correlate outbreaks with trends in these searches.
+
+
+
+		</body>
+
+
+</html>
