@@ -1,0 +1,977 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- saved from url=(0080)http://courses.cs.washington.edu/courses/cse140/13wi/homework/hw4/homework4.html -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Social networking and recommendation systems</title>
+  
+<style>[touch-action="none"]{ -ms-touch-action: none; touch-action: none; }[touch-action="pan-x"]{ -ms-touch-action: pan-x; touch-action: pan-x; }[touch-action="pan-y"]{ -ms-touch-action: pan-y; touch-action: pan-y; }[touch-action="scroll"],[touch-action="pan-x pan-y"],[touch-action="pan-y pan-x"]{ -ms-touch-action: pan-x pan-y; touch-action: pan-x pan-y; }</style></head>
+<body>
+<h1>Homework 8: Social networking and recommendation systems</h1> <!-- omit from toc -->
+
+<p>
+<img src="./hw8-social_files/the-social-network.jpg" alt="The Social Network" style="float:right">
+</p>
+
+<p>
+<b>Due</b>:  at 5pm on Friday, December 6.  Commit and sync this to your github repo and tag it <code>hw8</code></p>
+
+<p>
+When you sign into Facebook, it suggests friends.  In this assignment, you
+will write a program that reads Facebook data and makes friend recommendations.
+</p>
+
+<p>
+This assignment <em>looks</em> longer than it actually is.
+</p>
+<ul>
+  <li><a href="#background">Part 1</a> is background material and
+      explanations; there is nothing to turn in for this part, though
+      you do need to complete the NetworkX tutorial.</li>
+  <li><a href="#part-2">Part 2</a> asks you to create a graph, write 7
+      functions and two loops to
+      call them, and answer three written questions.</li>
+  <li><a href="#part-3">Part 3</a> asks you to create a graph, then
+      redo part of the work from Part 1, which essentially consists of
+      calling functions you already wrote.  You can complete this
+      part quickly.</li>
+</ul>
+
+
+<p>
+First, download and unzip the file <a href="homework8.zip">homework8.zip</a>.
+</p>
+
+
+<p>Contents:</p>
+<!-- start toc.  do not edit; run html-update-toc instead -->
+<ul>
+  <li><a href="#background">Part 1:  Background</a>
+    <ul>
+      <li><a href="#Recommendation_systems">Recommendation systems</a></li>
+      <li><a href="#Representing_a_social_network_as_a_graph">Representing a social network as a graph</a></li>
+      <li><a href="#Recommending_friends">Recommending friends</a></li>
+      <li><a href="#Representing_a_graph_in_Python">Representing a graph in Python</a></li>
+    </ul></li>
+  <li><a href="#part-2">Part 2: Test on a small graph</a>
+    <ul>
+      <li><a href="#create-graphs">Problem 1: Create graphs</a>
+        <ul>
+          <li><a href="#create-practice-graph">Problem 1a:  A small practice graph</a></li>
+          <li><a href="#create-rj-graph">Problem 1b:  The Romeo and Juliet graph</a></li>
+        </ul></li>
+      <li><a href="#numfriends-rj">Problem 2:  Recommend by number of common friends</a></li>
+      <li><a href="#influence-rj">Problem 3:  Recommend by influence</a></li>
+      <li><a href="#compare-recommendation-algorithm-rj">Problem 4: Does the recommendation algorithm make a difference?</a></li>
+      <li><a href="#analyze-algorithm">Problem 5: Analysis of the algorithm</a></li>
+      <li><a href="#random-friend-connection">Problem 6: Randomly choosing a friend connection</a></li>
+      <li><a href="#evaluate-recommendations-rj">Problem 7: How good are your recommendations?</a></li>
+    </ul></li>
+  <li><a href="#part-3">Part 3:  Work with the Facebook graph</a>
+    <ul>
+      <li><a href="#create-graph-facebook">Problem 8: Create a Facebook graph</a></li>
+      <li><a href="#numfriends-facebook">Problem 9:  Recommend by number of friends for Facebook</a></li>
+      <li><a href="#influence-facebook">Problem 10:  Recommend by influence for Facebook</a></li>
+      <li><a href="#compare-recommendation-algorithm-facebook">Problem 11: Does the recommendation algorithm make a difference for Facebook?</a></li>
+      <li><a href="#evaluate-recommendations-facebook">Problem 12: How good are your recommendations for Facebook?</a></li>
+    </ul></li>
+  <li><a href="#submit">Submit your work</a></li>
+  <li><a href="#troubleshooting">Troubleshooting</a></li>
+</ul>
+<!-- end toc -->
+
+
+<h1 id="background">Part 1:  Background</h1>
+
+
+<h2 id="Recommendation_systems">Recommendation systems</h2>
+
+<p>
+Facebook suggests people you may be (or should be) friends with.  Netflix
+suggests movies you might like.  Amazon suggests products to buy.  How do
+they do that?  In this assignment, you will learn one simple way to make
+such suggestions, called “collaborative filtering”.  The actual algorithms
+used by these companies are closely-guarded trade secrets.
+</p>
+
+<p>
+A computer system that makes suggestions is called a
+<a href="http://en.wikipedia.org/wiki/Recommender_system">recommender
+system</a>.  As background, there are two general approaches:  collaborative filtering
+and content-based filtering.
+</p>
+
+<ul>
+  <li>
+    <b>Collaborative filtering</b> says that, if your past
+    behavior/preferences were similar to some other user's, then your
+    future behavior may be as well.  As a concrete example, suppose that
+    you like John, Paul, and George, and other people like John, Paul,
+    George, and Ringo.  Then it stands to reason that you will like Ringo
+    as well, even if you had never previously heard of him.  The
+    recommender system does not have to understand anything about what
+    “John”, “Paul”, “George”, and “Ringo” are — they could even be
+    brands of toilet paper, and the algorithm would work identically.
+  </li>
+  <li>
+    <b>Content-based filtering</b> considers the characteristics of the
+    things you like, and it recommends similar sorts of things.  For
+    instance, if you like “Billie Jean”, “Crazy Train”, and “Don't Stop the
+    Music”, then you might like other songs in the key of F-sharp minor,
+    such as Rachmaninoff's “Piano Concerto No. 1”, even if no one else has
+    ever had that particular set of favorite songs before.
+  </li>
+</ul>
+
+<p>
+In this assignment, you will implement a  collaborative filtering
+recommendation system for suggesting friends on Facebook.
+</p>
+
+
+
+<h2 id="Representing_a_social_network_as_a_graph">Representing a social network as a graph</h2>
+
+<p>
+A <em>graph</em> or <em>network</em> represents relationships among things.
+The things are represented as <em>nodes</em> or <em>vertices</em>, and the
+relationships are represented as <em>edges</em>.
+</p>
+
+<p>
+One common use for a graph is to represent travel possibilities, such as on
+a road map or airline map.  The nodes of the graph are cities, and the
+edges show which cities are directly connected.  Then, you can use the
+graph to plan travel.
+</p>
+
+<p>
+<img src="./hw8-social_files/northeast-roads.gif" alt="Northeast roads" width="49%">
+<img src="./hw8-social_files/ThinkingNetworks-airline.gif" alt="Airline network" width="49%">
+</p>
+
+<p>
+Another common use for a graph is to represent friendship among people in a
+social network.  For example, here is the friendship graph for some of the
+characters of “Romeo and Juliet”:
+</p>
+
+<p>
+<img src="./hw8-social_files/romeo-and-juliet-undirected.png" alt="Romeo and Juliet social network" id="rj-graph">
+</p>
+
+<p>
+An edge between person <em>A</em> and person <em>B</em> means that
+<em>A</em> considers <em>B</em> a friend, and also <em>B</em> considers
+<em>A</em> a friend.
+</p>
+
+<p>
+This graph is unable to represent certain information.  For example, Count
+Paris wishes to wed Juliet, but she does not reciprocate his affection.
+You do not need to worry about this information, because Facebook does not
+represent this information either.  (Some other social networking sites,
+such as Twitter and Google+, do permit one-way links.)
+</p>
+
+<!-- Directed version
+<p>
+Notice that the edges are <em>directed</em>.  An edge from person
+<em>A</em> to person <em>B</em> means that <em>A</em> considers <em>B</em>
+a friend.  When this relationship is mutual, there are two arrows, 
+one <em>A</em>&rarr;<em>B</em> and one <em>B</em>&rarr;<em>A</em>.  The
+relationship does not have to be mutual:  Count Paris wishes to wed Juliet,
+but she does not reciprocate his affection.  (Facebook does not represent
+this information:  for each pair of users, either both arrows are present,
+or neither is.  Therefore, you do not need to worry about this information.)
+</p>
+-->
+
+<p>
+In the image above, ignore the gray background and the labels for the
+families ("houses");
+those are there just to help you interpret the graph but are not part
+of the social network itself.
+</p>
+
+
+<h2 id="Recommending_friends">Recommending friends</h2>
+
+<p>
+You will implement two mechanisms for recommending a new friend in a
+social network.  A simple way to state this question is, “For user X, who is
+the best person to recommend as a friend?”
+</p>
+
+<p>
+You will answer a more comprehensive question:  “For user X, list some
+<em>non-friends</em> in order, starting with the best friend
+recommendation and ending with the worst.”  A non-friend is a user who is
+not X and is not a friend of X.
+Depending on the recommendation algorithm, the list may include all
+non-friends or some of them.
+</p>
+
+<p>
+For example, for Mercutio the list might be:
+</p>
+<blockquote>
+<p>Capulet<br>Montague<br>Benvolio<br>Friar Laurence<br>Juliet</p>
+</blockquote>
+
+<p>
+Further note that the recommendations might not be symmetric:  the best
+friend recommendation for Montague might be Mercutio, but the best
+friend recommendation for Mercutio might be Capulet.
+</p>
+
+<p>
+Your task will be to write code that, given a user U in the social network,
+produces friend recommendations for U, in order from best to worst.
+You will do this by assigning each potential friend a number called a score, where higher
+scores indicate a better match.  Then you can sort your list according to
+the score.
+Given user X, if two people Y and Z would be equally good as new friends
+for X (they have the same score), then they should be listed in
+alphabetical order (for names) or numerical order (for numerical user IDs).
+</p>
+
+
+<h2 id="Representing_a_graph_in_Python">Representing a graph in Python</h2>
+
+<p>
+The <a href="http://networkx.github.io/">NetworkX</a> library represents a
+graph in Python.  Work through the
+<a href="http://networkx.github.io/documentation/latest/tutorial/tutorial.html">NetworkX
+tutorial</a>, up to and including the
+<a href="http://networkx.github.io/documentation/latest/tutorial/tutorial.html#accessing-edges">Accessing
+  edges</a> section.
+<!-- , and also optionally the
+  <a href="http://networkx.github.io/documentation/latest/tutorial/tutorial.html#drawing-graphs">Drawing
+  graphs</a> section.
+-->
+  In order for you to use this powerful library
+effectively, it's important that you actually do the exercises:  type the inputs and
+understand the outputs.
+</p>
+
+<p>
+To use the <tt>networkx</tt> library in a program, write <tt>import
+networkx</tt> or <tt>import
+networkx as nx</tt> near the top of your program.  The latter has already been done for
+you in the supplied <tt>social_network.py</tt>, so you can use shorter
+commands like <tt>nx.draw(...)</tt> instead of the (slightly longer)
+<tt>networkx.draw(...)</tt>.
+</p>
+
+
+<h1 id="part-2">Part 2: Test on a small graph</h1>
+
+<h2 id="create-graphs">Problem 1: Create graphs</h2>
+
+<p>
+It is always a good idea to test your code on a dataset
+that is small enough for you to manually compute the results.
+You will create two such datasets for testing.
+</p>
+
+<h3 id="create-practice-graph">Problem 1a:  A small practice graph</h3>
+
+<p>
+<img src="./hw8-social_files/practice_graph.png" alt="Imaginary social network" width="500">
+</p>
+    
+<p>
+Create the above graph, and store it in a variable named
+<tt>practice_graph</tt>.
+</p>
+
+<p>
+Use the
+<a href="http://networkx.github.io/documentation/latest/reference/classes.graph.html"><tt>Graph</tt></a>
+class (not DiGraph, MultiGraph, or MultiDiGraph).  Review its documentation
+before you begin.
+</p>
+
+<p>
+To help you verify that your graph is correct, the provided code
+<a href="http://networkx.github.io/documentation/latest/tutorial/tutorial.html#drawing-graphs">draws the
+    graph</a> to a window.  Compare your graph to the figure above. The
+nodes may appear in different locations; that's fine so long as the same
+nodes exist and they are connected in the same way by the edges.
+</p>
+
+<p>
+Note that your program will pause until you close the window that contains
+the the graph drawing.
+</p>
+
+<p>
+When you are happy with your graph, comment out the call
+<tt>draw_practice_graph()</tt> call (not the definition of the
+<tt>draw_practice_graph</tt> function).  The reason is so that you don't
+have to close the window every time you run your program.
+</p>
+
+
+<h3 id="create-rj-graph">Problem 1b:  The Romeo and Juliet graph</h3>
+
+<p>
+Create a graph named <tt>rj</tt> corresponding to the <a href="#rj-graph">Romeo and Juliet graph</a> above (ignoring the shaded family/house information).  
+</p>
+
+<p>
+To help you verify that your graph is correct, the provided code
+<a href="http://networkx.github.io/documentation/latest/tutorial/tutorial.html#drawing-graphs">draws the
+    graph</a> to a window and to a file <tt>romeo-and-juliet.pdf</tt>.
+Compare your graph to the Romeo and Juliet graph above. The
+nodes may appear in different locations; that's fine so long as the same
+nodes exist and they are connected in the same way by the edges.
+</p>
+
+<p>
+When you are happy with your graph and the <tt>romeo-and-juliet.pdf</tt>
+file, comment out the call <tt>draw_rj()</tt> call (not the definition of
+the <tt>draw_rj</tt> function).
+The reason is so that you don't have to close the window every time you run
+your program.
+</p>
+
+
+<!--
+
+Save your plot in file <tt>romeo-and-juliet.pdf</tt>, using the
+<a href="http://matplotlib.sourceforge.net/api/pyplot_api.html#matplotlib.pyplot.savefig"><tt>savefig</tt></a>
+command.<br />
+<b>Note</b>:  Calling
+<a href="http://matplotlib.sourceforge.net/api/pyplot_api.html#matplotlib.pyplot.show"><tt>show()</tt></a>
+not only displays the graph (which enables you to view it and double-check its
+correctness), but also clears the
+current figure (equivalently, creates a new figure).  Therefore, when you
+wish to save your figure to a file, you should either place the call to
+<tt>savefig()</tt> before the call to <tt>show()</tt>, or remove the call
+to <tt>show()</tt>.
+</p>
+
+-->
+
+
+<h2 id="numfriends-rj">Problem 2:  Recommend by number of common friends</h2>
+
+<p>
+If non-friend Y is your friend's friend, then maybe Y should be your friend
+too.  If person Y is the friend of many of your friends, then Y is an even
+better recommendation.  The best friend recommendation is the person with
+whom you have the largest number of mutual friends.
+You will implement this heuristic.
+</p>
+ 
+<p>
+As a concrete example, consider "A" in <tt>practice_graph</tt>.<br>
+</p>
+<blockquote>
+    <p>
+    A has one friend in common with B (namely, C).<br>
+    A has one friend in common with C (namely, B).<br>
+    A has two friends in common with D (namely, B and C).<br>
+    A has no friends in common with E.<br>
+    A has one friend in common with F (namely, C).
+    </p>
+</blockquote>
+
+<p>
+Similarly, consider Mercutio in the <a href="#rj-graph">Romeo and Juliet graph</a>.<br>
+</p>
+<blockquote>
+<p>
+Mercutio has two friends in common with Capulet (Escalus and Paris).<br>
+Mercutio has two friends in common with Montague (Escalus and Romeo).<br>
+Mercutio has one friend in common with Benvolio (Romeo).<br>
+Mercutio has one friend in common with Friar Laurence (Romeo).<br>
+Mercutio has one friend in common with Juliet (Romeo).<br>
+Mercutio has no friends in common with the Nurse.<br>
+Mercutio has no friends in common with Tybalt.
+</p>
+</blockquote>
+<p>
+Therefore, Capulet and Montague are the best friend recommendations for
+Mercutio, and the Nurse and Tybalt are the worst friend recommendations.
+(In fact, the Nurse and Tybalt are such poor friend recommendations that
+your program will not even suggest them.)
+</p>
+
+<p>
+Write the following 5 functions, whose documentation strings appear in the
+template file <tt>social_network.py</tt> that you were provided.
+</p>
+<ul>
+  <li><tt>friends_of_friends</tt></li>
+  <li><tt>common_friends</tt></li>
+  <li><tt>number_of_common_friends_map</tt></li>
+  <li><tt>number_map_to_sorted_list</tt></li>
+  <li><tt>recommend_by_number_of_common_friends</tt></li>
+</ul>
+
+<p>
+The template file defines a helper function, <tt>friends(graph, user)</tt>,
+that you may find useful.
+</p>
+
+<p>
+The template file also contains <tt>assert</tt> statements to help you test
+your code.  We strongly encourage you to <b>write additional tests</b> as well,
+in order to verify that your code is correct.
+</p>
+
+<p>
+Hint:  Remember that when Python
+tests sets or dictionaries for equality, it ignores the order of elements.
+A consequence of this is that two sets can print differently but be equal
+because they represent the same set, and likewise for dictionaries.
+For example, this Python expression evaluates to <tt>True</tt>:
+</p>
+<pre>{ 'Capulet', 'Escalus', 'Montague' } == { 'Montague', 'Capulet', 'Escalus' }
+</pre>
+
+<p>
+Hint:  Throughout this assignment, you are permitted, but not required, to
+define additional functions beyond the required ones.
+</p>
+
+<p>
+Hints for <tt>friends_of_friends</tt> and <tt>common_friends</tt>:  When
+defining these routines, you should not use any data structures other than
+sets.  If you find yourself using even one list or dictionary, then you are
+doing the problem wrong.  The reason to use sets is that the code is much
+shorter and simpler.  In fact, a good solution to 
+<tt>friends_of_friends</tt> is 4 lines long, and a good solution to 
+<tt>common_friends</tt> is 1 line long.  Longer solutions are possible and
+can also be good style, but the point is that these are small, simple
+functions.  The other functions you will define are little, if any, longer.
+</p>
+
+<p>
+Hints for <tt>number_map_to_sorted_list</tt>:
+</p>
+<ul>
+  <li>You may want to use the <tt>key</tt> argument to the <tt>sort</tt>
+      routine.  Furthermore, you may find the
+      <a href="http://docs.python.org/library/operator.html#operator.itemgetter"><tt>operator.itemgetter</tt></a>
+      routine useful as the key argument.
+      For details, see the <a href="http://docs.python.org/2/howto/sorting.html">Python Sorting HowTo</a>.
+  </li>
+  <li>There are multiple ways to sort primarily on criterion
+      c1, and to sort on criterion c2 wherever c1 does not make a distinction.
+      One way is to first sort with respect to c2, then sort with
+      respect to c1.  This works because when Python sorts, it retains the
+      ordering of any items whose sort keys are equal.
+      (Another way is to use, as the sort key, a tuple/list of all the
+      sort criteria.  A way to do this is with a key expression like
+      <tt>itemgetter(1, 0)</tt>.  This works because Python, when comparing
+      a tuple/list, does so <em>lexicographically</em> (element-by-element,
+      stopping when there is any difference.)
+      For details, see the <a href="https://wiki.python.org/moin/HowTo/Sorting/#Sort_Stability_and_Complex_Sorts">Python Sorting HowTo</a>.
+  </li>
+</ul>
+
+
+
+<h2 id="influence-rj">Problem 3:  Recommend by influence</h2>
+
+<p>
+We will now give a different algorithm for computing a friendship score.
+</p>
+
+<p>
+Consider the following hypothetical situation.
+</p>
+<blockquote>
+<p>
+Two of your friends are J.D. Salinger and Tim Kinsella.<br>
+J.D. Salinger has only two friends (you and one other person).<br>
+Tim Kinsella has 7 billion friends.<br>
+J.D. and Tim have no friends in common (besides you).
+</p>
+</blockquote>
+
+<p>
+Since
+J.D. is highly selective in terms of friendship, and is a friend of yours,
+you are likely to have a lot in common with J.D.'s other friend.  On the
+other hand, Tim is indiscriminate and there is little reason to believe
+that you should be friendly with any particular one of Tim's other friends.
+</p>
+
+<p>
+Incorporate the above idea into your friend recommendation algorithm.
+Here is the concrete way that you will do so.  We call the technique
+“influence scoring”.<br>
+Suppose that user1 and user2 have three friends in common: f1, f2, and f3.
+In <a href="#numfriends-rj">Problem 2</a>, the score for user2 as a friend of user1 is 1+1+1:  each
+common friend contributes 1 to the score.
+In this problem, the score for user2 as a friend of user1 is
+1/numfriends(f1) + 1/numfriends(f2) + 1/numfriends(f3), where numfriends(f)
+is the number of friends that f has.  In other words, each friend <em>F</em> of user1
+has a total influence score of 1 to contribute, and divides it equally among all of
+<em>F</em>'s friends.
+</p>
+
+<p>
+In the example above, J.D. Salinger's other friend would have a score of
+1/2, and each of Tim Kinsella's friends would have a score of
+1/7000000000.
+</p>
+
+<p>
+The <tt>social_network.py</tt> file gives two
+functions (<tt>influence_map</tt> and <tt>recommend_by_influence</tt>)
+that you should implement.  You may find that their implementations are
+quite similar to code that you have already written in Problem 2; that is OK.
+The file also gives one test case for each of the two functions.
+</p>
+
+<p>
+Do not change the code that you wrote for <a href="#numfriends-rj">Problem
+2</a>.  However, you can reuse most of it.  You can solve the problem with
+just the two new functions (<tt>influence_map</tt> and
+<tt>recommend_by_influence</tt>), plus re-using some unchanged functions
+from Problem 2.
+</p>
+
+
+<h2 id="compare-recommendation-algorithm-rj">Problem 4: Does the recommendation algorithm make a difference?</h2>
+
+<p>
+Does the change of recommendation algorithm make any difference?
+Maybe not:  you can see that
+Mercutio gets the same friend recommendations with both recommendation
+approaches.
+Does everyone get identical results with the two recommendation approaches?
+</p>
+
+<p>
+Write code to print a list of people for whom the two approaches make the
+same recommendations, then print a list of people for whom the two
+approaches make different recommendations.  Each list should be sorted in
+alphabetical order.</p>
+    
+    <p>Print output format:</p>
+<pre>Unchanged recommendations: ['name', 'name', ...]
+Changed recommendations: ['name', 'name', ...]
+</pre>
+
+    
+<p>Paste the output into an
+<tt>answers.txt</tt> file, which you will create.
+</p>
+
+<p>
+Hint:  There are 5 people for whom the recommendations are the same, and 6
+people for whom the recommendations are different.
+</p>
+
+
+<h2 id="analyze-algorithm">Problem 5: Analysis of the algorithm</h2>
+
+<p>
+In <a href="#numfriends-rj">Problem 2</a>, every friend recommendation had a score of 1 or more.
+In <a href="#influence-rj">Problem 3</a>, every friend recommendation had a score of less than 1.
+Will that always be the case?
+</p>
+
+<p>
+In your <tt>answers.txt</tt> file, state whether each influence score will always be
+less than 1.  If your answer is “yes”, explain why.  If your answer is
+“no”, then give the smallest graph that you can that has a friend influence
+score of 1 or greater.  In either case, you do not have to write any code
+— all your answers will appear in your <tt>answers.txt</tt> file.
+</p>
+
+
+<h2 id="random-friend-connection">Problem 6: Randomly choosing a friend connection</h2>
+
+<p>
+Suppose that you wanted to randomly choose a friend connection
+from a social network.  Here are two ways to do this:
+</p>
+
+<ul>
+  <li>Obtain a list of all the friend connections, and randomly choose one
+    of those.</li>
+  <li>Randomly choose a user in the social network, then randomly choose
+      one of their friends. Here, "randomly" means a uniform probability of selecting each element.</li>
+</ul>
+
+<p>
+The former makes each choice of friend connection equally likely.
+The latter does not necessarily do so.
+</p>
+
+<p>
+In your <tt>answers.txt</tt> file, describe the smallest graph that you can
+for which the two approaches lead to different results.  In other words,
+the first approach leads to each edge in the social network graph being
+chosen with equal probability, and the second approach leads to some edges
+being more probably to be chosen than others.  State the probability of each
+edge in your example graph being chosen, when using the latter approach.
+</p>
+
+<p>
+There is no code to write for this question.  Just write your solution in
+<tt>answers.txt</tt>
+</p>
+
+<p>
+Hint:  If you are having trouble, then start with the simplest possible
+graph, compute the probabilities, and make the graph incrementally more
+complicated until you find the example you seek.
+</p>
+
+
+<h2 id="evaluate-recommendations-rj">Problem 7: How good are your recommendations?</h2>
+
+<p>
+We have seen that the two recommendation systems give different results.
+Which one is better?
+</p>
+
+<p>
+You will test the two recommendation systems in the following way:
+</p>
+<ol>
+  <li>Randomly choose a real friend connection; call the two friends F1 and F2.
+  </li>
+  <li>Remove their friendship from the graph.</li>
+  <li>Compute friend recommendations for F1 and F2.</li>
+  <li>Determine the rank of F1 in F2's list of recommended friends.<br>
+      Determine the rank of F2 in F1's list of recommended friends.<br>
+      If either of these does not exist (e.g., F1 is not recommended as one
+      of F2's friends), discard the F1-F2 pair from your experiment.<br>
+      Otherwise, average these two numbers.<br>
+      The "rank" is also known as the "index" or "position".  It starts
+      counting at <b>1</b>, not 0.
+  </li>
+  <li>Don't forget to put their friendship back in the graph.</li>
+</ol>
+
+<p>
+For a perfect recommendation system, the first recommendation for F1 would
+be F2, and the first recommendation for F2 would be F1.  In general, the
+closer to the front of the list these recommendations are, the better the
+recommendation system.
+</p>
+
+<p>
+For each recommendation system, perform the above experiment 100 times,
+using the Romeo and Juliet data.
+Compute the average rank of the correct recommendation within the
+list of recommendations.  (If the correct recommendation does not appear
+within the list of recommendations, ignore that trial when computing the
+average rank.)
+</p>
+
+<p>
+To prevent different random choices from skewing your
+results, use the <em>same</em> random choices for both recommendation systems.
+Another way of saying this is that each time you make a random choice, you
+should evaluate both recommendation systems using that choice.  Then go on
+to the next choice.  Every run of your program will produce slightly
+different average ranks, but your program should be consistent in terms of
+which method is better.
+</p>
+
+<p>
+Ensure that your code is general.  Write it as a function that takes a
+graph as an input, then call that function.  You will re-use the function
+in <a href="#evaluate-recommendations-facebook">Problem 12</a>.
+</p>
+    
+    <p>Print output format:</p>
+<pre>Average rank of influence method: ___
+Average rank of number of friends in common method: ___
+___ method is better.
+</pre>
+    
+<p>
+Hint:  The average rank will be around 2.
+</p>
+
+<p>
+Ensure that your code is documented.  In your <tt>answers.txt</tt> file,
+give the average index for each recommendation system.
+State which recommendation system is better for the <tt>rj</tt> graph.
+</p>
+
+<p>
+Hint:  To select a random element from a list, use the function
+<a href="http://docs.python.org/2/library/random.html#random.choice"><tt>random.choice</tt></a>.
+</p>
+
+
+<h1 id="part-3">Part 3:  Work with the Facebook graph</h1>
+
+
+<h2 id="create-graph-facebook">Problem 8: Create a Facebook graph</h2>
+
+<p>
+Create a graph named <tt>facebook</tt> from the Facebook data in file
+<tt>facebook-links.txt</tt>.
+As above, use the
+<a href="http://networkx.github.io/documentation/latest/reference/classes.graph.html"><tt>Graph</tt></a>
+class.
+</p>
+
+<p>
+Print the number of nodes and the number of edges in your <tt>facebook</tt>
+graph.  The output should be:
+</p>
+<pre>Facebook nodes: 63731
+Facebook edges: 817090
+</pre>
+
+<p>
+The <tt>facebook-links.txt</tt> file in your <tt>homework4</tt> directory 
+is courtesy of the <a href="http://www.mpi-sws.org/index.php">Max Planck Institute
+  for Software Systems</a>.  Here is a slightly clarified version of the
+<a href="http://socialnetworks.mpi-sws.org/data-wosn2009.html">documentation
+  for this file</a>:
+</p>
+
+<blockquote>
+<p>
+File <tt>facebook-links.txt</tt> contains a list of all of the user-to-user
+links from the Facebook New Orleans networks.
+These links are undirected on Facebook.
+</p>
+
+<p>
+Format:  Each line contains two numeric user identifiers, meaning the
+second user appeared in the first user's friend list, <em>and</em> 
+the first user appeared in the second user's friend list. Finally, the third
+column is a UNIX timestamp with the time of link establishment (if it could
+be determined, otherwise it is '\N').
+</p>
+</blockquote>
+
+<p>
+A Unix timestamp is the number of seconds since January 1, 1970.  You may
+ignore it in this assignment.  (Facebook does use the
+recency of your activity to help it in making recommendations.)
+</p>
+
+<!--
+Don't even mention this to the students, and hope that they don't even
+notice it.  It should not affect them.  (It did weird me out when I was
+validating my solution.)
+
+<p>
+The <tt>facebook-links.txt</tt> file sometimes lists an edge in both
+directions; for example, it contains both of these lines:
+</p>
+<pre>
+1	10	\N
+10	1	\N
+</pre>
+-->
+
+
+<!--
+Do not make this suggestion.  It's almost as easy to read
+the .txt file directly, and doing so does not require the students to learn
+a new Python package.
+<p>
+Hint: Python's
+<a href="http://docs.python.org/library/csv.html"><tt>csv</tt></a> module
+makes it easy to read the <tt>facebook-links.txt</tt> file.  Alternately, you
+can solve this problem without using the <tt>csv</tt> module.
+</p>
+-->
+
+<p>
+Hint:
+Don't be alarmed if reading the Facebook data takes a little while.  The
+file is large, and reading it may take up to a minute.
+However, do not try to draw the Facebook graph.  This may cause your
+computer to hang, and even if it were successful, you would not learn much
+from a tangled mess of 817,090 edges.
+</p>
+
+
+
+<h2 id="numfriends-facebook">Problem 9:  Recommend by number of friends for Facebook</h2>
+
+<p>
+For every Facebook user with an id that is a multiple of 1000, print a list
+containing the first 10 friend recommendations, as determined by number of
+common friends.
+If there are fewer than 10 recommendations, print all the recommendations.
+</p>
+    
+<p>Print output format:</p>
+<pre>...
+28000 ['17125', '7033', '15462', '33049', '51105', '16424', '23', '7996', '1539', '17420']
+29000 ['28606']
+30000 ['14473', '14495', '17951', '19611', '22749', '23259', '30002', '3154', '8269', '862']
+...
+</pre>
+    
+<p>
+(The above is actual output for the <tt>recommend_by_influence</tt>
+approach.  Your output for the <tt>recommend_by_number_of_common_friends</tt>
+approach will differ, but will use the same general formatting.)
+</p>
+
+<p>
+Paste the output into <tt>answers.txt</tt> file.
+</p>
+
+
+<h2 id="influence-facebook">Problem 10:  Recommend by influence for Facebook</h2>
+
+<p>
+For every Facebook user with an id that is a multiple of 1000, print a list
+containing the first 10 friend recommendations, as determined by influence
+score.  
+If there are fewer than 10 recommendations, print all the recommendations.
+</p>
+
+<p>
+Output format is the same as in Problem 9. Paste the output into your <tt>answers.txt</tt> file.
+</p>
+
+<h2 id="compare-recommendation-algorithm-facebook">Problem 11: Does the recommendation algorithm make a difference for Facebook?</h2>
+
+<p>
+Considering only those 63 Facebook users with an id that is a multiple of
+1000, compute and print the number of Facebook users who have the same
+first 10 friend recommendations under both recommendation systems, and the
+number of Facebook users who have different first 10 friend recommendations
+under the two recommendation systems. This program will take some time to compute (at least a couple of minutes).
+</p>
+
+    <p>Print output format:</p>
+<pre>Same: __, Different: __
+</pre>
+    
+<p>
+Paste the output into your <tt>answers.txt</tt> file.
+</p>
+
+
+<h2 id="evaluate-recommendations-facebook">Problem 12: How good are your recommendations for Facebook?</h2>
+
+<p>
+Repeat the procedure you followed for
+<a href="#evaluate-recommendations-rj">Problem 7</a>, but for the Facebook
+data.
+</p>
+
+<p>
+In your <tt>answers.txt</tt> file,
+give the average index for each recommendation system.
+State which recommendation system is better for the <tt>facebook</tt> graph.
+</p>
+    
+    
+    <p>Print output format:</p>
+<pre>Average rank of influence method: ___
+Average rank of number of friends in common method: ___
+___ method is better.
+</pre>
+
+<p>
+Hint:  The average indices should be in the 100-400 range.  This is because
+the social network is very large, you are using very impoverished data
+(just existing connections) and you are looking for one specific
+“right” answer (even though in real life many of the
+recommendations are probably useful).
+</p>
+
+<p>
+Note:
+You will evaluate the recommendation systems on 100
+randomly-chosen edges out of the 817,090 edges in the Facebook graph.
+If you were to choose 100 different randomly-chosen
+edges, you would get different results.
+The answers are likely to be informative nonetheless.
+If you choose 100 edges at random, it is unlikely that you will make an
+unlucky choice, such that technique 1 is better than technique 2 for those
+100 edges, but technique 2 is better than technique 1 overall.  It's still
+a possibility, of course.  The more edges you choose at random, the less
+likely you are to be unlucky in that way.
+We asked you to do the evaluation on 100 randomly-chosen edges because
+your code would be very slow if you used (say) 1000 choices.
+</p>
+
+
+<h1 id="submit">Submit your work</h1>
+
+<p>
+You are almost done!
+</p>
+
+<p>
+At the bottom of your <tt>answers.txt</tt> file, in the “Collaboration”
+part, state which students or
+other people (besides the course staff) helped you with the assignment, or
+that no one did.
+</p>
+
+<p>
+At the bottom of your <tt>answers.txt</tt> file, in the “Reflection” part,
+reflect on this assignment.
+  What did you learn from this assignment?  What do you wish you had known
+  before you started?  What would you do differently?  What advice would
+  you offer to future students?
+</p>
+
+<p>
+Commit the following files to your github repo, sync it, and tag it as <tt>hw8</tt>.
+</p>
+<ul>
+  <li><tt>answers.txt</tt></li>
+  <li><tt>romeo-and-juliet.pdf</tt></li>
+  <li><tt>social_network.py</tt></li>
+</ul>
+
+<h1 id="troubleshooting">Troubleshooting</h1>
+
+<p>
+If you get an error
+</p>
+<pre>ImportError: No module named networkx
+</pre>
+<p>
+then you need to install the networkx package by requesting an academic license
+for the Enthought Python Distribution as described in Lab 8 and detailed
+
+<a href="https://www.enthought.com/products/canopy/academic/">
+on this website
+</a>.
+</p>
+
+
+
+
+
+<!--  LocalWords:  NetworkX networkx facebook txt DiGraph MultiGraph ' N' 11pm
+ -->
+<!--  LocalWords:  MultiDiGraph homework4 timestamp rj juliet png savefig nx c1
+ -->
+<!--  LocalWords:  11pm CollectIt Dropbox pdf Mercutio Benvolio py user1 Tybalt
+ -->
+<!--  LocalWords:  Kinsella user2 f1 f2 f3 numfriends Kinsella's F2's F1's c2 '
+ -->
+<!--  LocalWords:  recommender Rachmaninoff's dataset Escalus 'Capulet' HowTo
+ -->
+<!--  LocalWords:  'Escalus' 'Montague' itemgetter Salinger's recency csv
+ -->
+<!--  LocalWords:  'Capulet' 'Escalus' 'Montague' ' 9pm turnin 1a 1b '
+ -->
+<!--  LocalWords:  'Capulet' 'Escalus' 'Montague' 'name' '17125' '7033'
+ -->
+<!--  LocalWords:  '15462' '33049' '51105' '16424' '23' '7996' '1539'
+ -->
+<!--  LocalWords:  '17420' '28606' '14473' '14495' '17951' '19611' '22749'
+ -->
+<!--  LocalWords:  '23259' '30002' '3154' '8269' '862'
+ -->
+</body></html>
