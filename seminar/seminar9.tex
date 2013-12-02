@@ -1,0 +1,282 @@
+\documentclass{article}
+
+\usepackage[osf]{mathpazo} % Use Palatino / Euler fonts
+\usepackage{epsfig}
+\usepackage{graphicx}% Include figure files
+
+\usepackage{listings}
+\usepackage{color}
+
+\usepackage{enumerate}
+\usepackage{graphicx}
+\usepackage{url}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=Java,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true
+  tabsize=3
+}
+
+\title{Computer Science Foundations\\ Puzzle-Solving Workshop and Seminar\\
+\large{Episode 9---December 2}\\
+Fall 2013}
+
+\author{Paul Pham and Neal Nelson}
+
+\begin{document}
+
+\maketitle
+
+Welcome to the Puzzle-Solving Workshop and Seminar for
+Computer Science Foundations. You will notice there are
+two parts to this thread: \emph{workshop} and \emph{seminar}.
+Workshop is meant to strengthen your problem-solving skills,
+to help you in the Discrete Math thread as well as future
+math and computer science courses. Seminar is meant to
+work on your discussion, writing, and creativity skills.
+We will alternate between the two different modes.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Friends When You Need Them}
+
+Elise has invited Carl and Ada over to her house to work on their
+homework. Carl, wanting to spend time alone with Ada, but not sure
+how to get rid of Elise, reluctantly agreed.
+They are sitting in the garage, where each of them has
+set up their own ideal work environment. Carl is standing by a
+chalkboard covered in equations, working out his discrete math
+homework in a
+mathematically elegant and rigorous way. Ada sits at a bench,
+hammering and forging and soldering the parts to her pet
+computer, which she calls Sparky. When it's finished, Sparky
+will run Python programs and help her finish her programming
+homework.
+
+Elise slumps in a beanbag
+chair on the ground, sketching doodles in her notebook with a
+thick black pen. The doodles are a storyboard for her new zine,
+which she will take to the comics store to sell when she's
+done. If we were to peek over her shoulder, we would
+discover that Ada, Carl, and Elise are themselves characters
+in her graphic novel, having adventures, mostly related to
+discrete math, computer programming, and puzzle-solving.
+
+``Hey honey, I brought you and your friends sandwiches,''
+her dad says, poking his head through the garage door.
+``I thought you might be hungry.''
+
+``Thanks, Dad, you're the best,'' Elise says, getting up
+to hug her dad.
+
+``Yeah, thanks Mr. de Morgan,'' both Carl and Ada say as
+they dig into the sandwiches. ``Math is hard.''
+
+``Well, I'm just glad Elise finally has some friends.
+It's been lonely for her since her mother died. For both
+of us.'' Mr. de Morgan pats his daughter on the head and
+turns to her friends. ``I rest a little easier knowing
+she can rely on you two.''
+
+Carl and Ada exchange a confused look before turning
+back. ``Er, yeah, we'll totally help Elise pass this
+discrete math class.''
+
+``Dad, stop being weird, you're embarrassing me,''
+Elise pretends to be angry before shooing her dad out.
+``Sorry guys, he always makes a big deal when I bring
+friends home.''
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Perfect Numbers}
+
+``I'm stuck---'' Carl finally says, turning to Ada. Always
+surprised by her beauty, he stammers for a bit, trying
+not to stare like a creep. 
+Ada, however, is also
+vainly admiring her reflection in one of Sparky's polished
+sideplates, smiling at herself.
+``Um, er, do you know anything about perfect numbers?''
+
+``Hmm? No, but I do like things that are perfect.''
+Ada turns to face him, twirling her hair around a finger.
+``Tell me about them.''
+
+\begin{quote}
+A perfect number is a positive integer which is equal
+to the sum of all of its factors (divisors), including $1$ but
+not itself. As an example, the first perfect number
+is $6 = 1 + 2 + 3$.
+\end{quote}
+
+``But I can't find a formula for finding arbitrarily
+many perfect numbers,'' Carl says.
+
+``You don't need a formula. You just need to
+write a program.'' Ada finishes screwing in
+her computer's sideplates. ``Sparky could do it
+for you. I just have to write a Python program
+first.''
+
+She flips a switch, and Sparky whirs to life. 
+He clacks and spins and grrs and barks with
+pseudo-lifelike precision. ``Woof,'' he blurts
+out. Ada pats him on the head. ``Good boy.''
+
+\begin{enumerate}
+\item[\textbf{Problem 1}] Write a Python program to check the
+numbers from $1$ to $100,000$ to determine if any
+of them are perfect numbers. Print out the numbers
+that \emph{are} perfect. If you don't know
+Python,
+use the pseudo-code
+described in Section 3.1 of your discrete math
+textbook by Rosen. Then partner up with someone who does
+know Python to run the program and check your work.
+\end{enumerate}
+
+Run your program on Sparky (er, or on a website such
+as PythonAnywhere or repl.it).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{A Mystery of Sorts, in the Library}
+
+All of a sudden, a loud crash interrupts them from upstairs.
+Exchanging an alarmed glance, the four of them drop their
+chalk / screwdriver / notebook / bolts and dash upstairs to discover
+the source of the noise.
+
+``Dad?'' Elise calls out loudly, almost in a panic, as they
+search the house for her father. ``Dad?!''
+
+``Bark,'' says Sparky.
+
+``Of course, Sparky! Here, in the library,'' Ada says calmly, noticing the open
+door and the sound of fluttering pages through it.
+Upon entering the
+room full of books, they find a broken window, the curtains
+billowing in the wind. Several tables and chairs are
+knocked over, with books scattered on the ground, as if a
+great struggle occurred. A leather armchair sits next to the
+still roaring fireplace, where Elise's father was fond of sitting.
+On the endtable, an open book has pages fluttering in
+the wind. While Carl and Ada scout the room looking for
+clues, Elise picks up her father's pipe, which is marking
+a place in the book.
+
+``Oh no\ldots'' Elise breathes in fear, as Carl and Ada
+gather around. There on the page, in rushed handwriting,
+is a note:
+
+\begin{quote}
+My dearest Elise,
+
+As you know, I have long suspected that the computers and
+robots in
+our world are becoming more networked, more controlled by
+a sinister power which I have come to call the One Machine.
+Its agents may be everywhere, looking for me now.
+If you cannot find me, I have left to protect you.
+Do not try to find me, it is too---
+\end{quote}
+
+Here the note ends in a scrawled line that drags to the
+edge of the page, and they find a fountain pen on the
+ground.
+
+``He always thought this might happen. He even made up a
+secret code that only the two of us knew about. I'd never
+thought we'd have to use it.'' Elise finishes reading
+the note, her hands falling down in despair.
+``We \emph{have} to go after him.''
+
+``But\ldots but your father explicitly said not to,''
+Carl reminds her nervously. ``He was going to say the
+word \emph{dangerous} next, I'm sure of it.'' He
+gestured to the broken furniture. ``Look, there was
+a fight between your father and the agents of the One
+Machine.''
+
+``No, that was part of our code. When he says not to
+come after him, he means the exact opposite!''
+Elise is about to cry. ``But I can't do this alone, guys.
+I'm scared.'' For some reason, both she and Carl
+look to Ada next to see what she will do.
+
+``I agree with Carl,'' Ada says at last, which gave him a
+gratified look. ``Based on this apparent struggle, it
+looks like Mr. de Morgan was kidnapped or forced to
+flee. This will indeed be dangerous.'' Carl nods
+vigorously.
+She examines the note. ``I also agree with
+Elise,'' which causes Carl to frown a little.
+``We should go after him.''
+
+``Oh thank you!'' Elise hugs Ada suddenly. Then they
+both pause awkwardly and withdraw, but with slight
+smiles.
+
+``Ahem!'' Carl interrupts them. ``All right, I'll go
+with you. I'm sure you'd do the same for me, although
+\emph{my} father is much too smart to get mixed up
+with sinister, all-powerful sentient computers. So
+how do we find him?''
+
+``Each of the books in my father's library has a
+volume number. He said he would write one letter inside
+the front cover of each book, when they're all in
+order, telling me where to find him. But they're all
+scattered around the floor! They'll take forever to sort.''
+
+``Not necessarily. We've been learning sorting algorithms
+in discrete math class. I'll program Sparky to simulate
+which one would be the fastest for us.''
+
+Sparky wags his robotic tail.
+
+Listed below are the volume numbers of the books lying
+scattered on the library floor, along with the single letter
+written on the inside of each book's cover. The volume number is
+shown before the colon and the letter is shown after the colon,
+in each pair, or \emph{item}. There are 35 items
+altogether. Note that this is not exactly a Python dictionary, because
+order matters here (remember, this is the physical order of the books
+as they would look on the floor to our characters.)
+
+\begin{quote}
+\texttt{
+6:t 30:l 5:f 27:e 12:s 34:s 24:t 32:n 25:i 10:e 8:e 20:n 17:r
+33:d 21:d 3:p 1:h 28:i 15:w 22:u 2:i 26:v 7:h 19:i 14:o 16:a
+9:s 23:c 29:s 0:s 4:o 18:d 11:u 31:a 13:t
+}
+\end{quote}
+
+Write a Python program to sort this list using bubble sort and insertion
+sort given in pseudo-code in your Rosen textbook (Chapter 3), and then run it
+on Sparky (again, PythonAnywhere or repl.it. At least, until you can build
+your own robotic dog that understands Python.)
+
+\begin{enumerate}
+\item[\textbf{Problem 2}] How many comparisons (between two items) will be necessary to fully
+sort the list using bubble sort?
+\item[\textbf{Problem 3}] How many comparisons (between two items) will be necessary to fully
+sort the list using insertion sort?
+\item[\textbf{Problem 4}] What is the scrambled message encoded by these letters?
+That is, where should Ada, Elise, and Carl go to find Mr. de Morgan?
+\end{enumerate}
+
+\end{document}
