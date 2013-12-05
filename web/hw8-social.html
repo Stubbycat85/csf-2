@@ -239,7 +239,25 @@ alphabetical order (for names) or numerical order (for numerical user IDs).
 
 <p>
 The <a href="http://networkx.github.io/">NetworkX</a> library represents a
-graph in Python.  Work through the
+graph in Python.
+</p>
+
+<p>
+To install it on ACC lab computers, open up a terminal in Mac OSX.
+Copy and paste the following commands:
+</p>
+
+<blockquote>
+export PYTHONPATH="/Users/phamp/Library/Enthought/Canopy_64bit/System/lib/python2.7/site-packages" <br/>
+python ~/Library/Enthought/Canopy_64bit/User/bin/easy_install --install-dir=~/Library/Enthought/Canopy_64bit/System/lib/python2.7/site-packages networkx
+</blockquote>
+
+<p>
+Now test it out by opening Canopy, restarting the kernel, and typing <tt>import networkx</tt> in the interactive
+window.
+</p>
+
+ Work through the
 <a href="http://networkx.github.io/documentation/latest/tutorial/tutorial.html">NetworkX
 tutorial</a>, up to and including the
 <a href="http://networkx.github.io/documentation/latest/tutorial/tutorial.html#accessing-edges">Accessing
@@ -261,7 +279,6 @@ you in the supplied <tt>social_network.py</tt>, so you can use shorter
 commands like <tt>nx.draw(...)</tt> instead of the (slightly longer)
 <tt>networkx.draw(...)</tt>.
 </p>
-
 
 <h1 id="part-2">Part 2: Test on a small graph</h1>
 
@@ -949,7 +966,12 @@ on this website
 </p>
 
 
+<h1>Change History</h1>
 
+<ul>
+<li>
+<b>[2013-12-4]</b> Added instructions for installing networkx on ACC lab computers.</li>
+</ul>
 
 
 <!--  LocalWords:  NetworkX networkx facebook txt DiGraph MultiGraph ' N' 11pm
